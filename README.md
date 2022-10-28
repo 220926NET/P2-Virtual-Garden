@@ -29,6 +29,7 @@ Project 2 - Rushay, Jacob, Chi, Duncan
     - Inventory/Marketplace
     - Larger plants that take up more than one grid space 
 - ERD
-ON DOCUMENT
+     - ![ERD picture](Garden_Game.png)
+
 - External API
     - Weather API to set the mood the page
