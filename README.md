@@ -30,6 +30,8 @@ Project 2 - Rushay, Jacob, Chi, Duncan
     - Larger plants that take up more than one grid space 
 - ERD
      - ![ERD picture](Garden_Game.png)
+- FrontEnd Design
+    -![Rough Draft](Design.png)
 
 - External API
     - Weather API to set the mood the page
