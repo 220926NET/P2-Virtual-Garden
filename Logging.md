@@ -2,10 +2,11 @@
 Notes on logging
 ## Projects that have logging enable (PLEASE UPDATE THIS LIST IF YOU HAVE ENABLED LOGGING IN A PROJECT)
 - API
+- DataAccess
 ## To enable logging on project
 1. check the list, see if its already enable
 2. if it is not enabled `cd` into the project folder
-3. run command `dotnet add package Serilog; dotnet add package Serilog.Sinks.Console; dotnet add package Serilog.Sinks.File`
+3. run command `dotnet add package Serilog`
 4. thats it!
 ## To use logging
 All logs are stored in the `backend/logs/` and are suffixed by the date
