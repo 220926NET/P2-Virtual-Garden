@@ -1,3 +1,6 @@
+using Models;
+using Services;
+
 using Serilog;
 
 // Setting up Serilog
@@ -15,6 +18,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IServices<User>, UserServices>();
+builder.Services.AddScoped<IDBAccessFactory, DBAccessFactory>();
 
 var app = builder.Build();
 
