@@ -6,9 +6,9 @@ public class UserServices : IServices<User>
 {
     IDBAccess<User> _userDatabase;
 
-    public UserServices(IDBAccess<User> userDatabase)
+    public UserServices(IDBAccessFactory factory)
     {
-        _userDatabase = userDatabase;
+        _userDatabase = factory.GetUserDB();
     }
 
     public User Add(User newUser)
