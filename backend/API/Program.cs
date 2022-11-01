@@ -19,6 +19,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IServices<User>, UserServices>();
+builder.Services.AddScoped<IServices<Post>, PostServices>();
 builder.Services.AddScoped<IDBAccessFactory, DBAccessFactory>();
 
 var app = builder.Build();
@@ -38,7 +39,7 @@ app.MapControllers();
 
 Log.Information("The API is starting");
 app.Run();
-
+Log.Information("The API has stopped");
 
 // Dispose of logger
 Log.CloseAndFlush();

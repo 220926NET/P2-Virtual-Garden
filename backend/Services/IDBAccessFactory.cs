@@ -5,4 +5,5 @@ namespace Services;
 public interface IDBAccessFactory
 {
     public IDBAccess<User> GetUserDB();
+    public IDBAccess<Post> getPostDB();
 }
