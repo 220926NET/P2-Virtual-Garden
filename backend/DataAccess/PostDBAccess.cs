@@ -43,7 +43,7 @@ public class PostDBAccess : IDBAccess<Post>
         }
         catch (SqlException e)
         {
-            Log.Error("An exception was thrown while adding a user to the database", e);
+            Log.Error(e, "An exception was thrown while adding the post");
         }
         return temp;
     }
