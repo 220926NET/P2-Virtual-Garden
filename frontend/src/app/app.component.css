@@ -1,0 +1,9 @@
+/* .parentContainer{
+    display:flex;
+} */
+
+.parentContainer-1{
+    display:flex;
+    justify-content: space-between;
+    flex-grow:1;
+}
