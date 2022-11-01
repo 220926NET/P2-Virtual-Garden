@@ -14,7 +14,7 @@ public class PostServices : IServices<Post>
 
     public Post Add(Post t)
     {
-        throw new NotImplementedException();
+        return _postDatabase.Add(t);
     }
 
     public Post Delete(Post t)
