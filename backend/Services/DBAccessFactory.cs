@@ -9,7 +9,7 @@ public class DBAccessFactory : IDBAccessFactory
 
     public IDBAccess<Post> getPostDB()
     {
-        throw new NotImplementedException();
+        return new PostDBAccess(_connection);
     }
 
     public IDBAccess<User> GetUserDB()
