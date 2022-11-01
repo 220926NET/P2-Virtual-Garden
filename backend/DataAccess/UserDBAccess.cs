@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Models;
+using Serilog;
 
 namespace DataAccess;
 public class UserDBAccess : IDBAccess<User>
@@ -39,9 +40,9 @@ public class UserDBAccess : IDBAccess<User>
             }
 
         }
-        catch (SqlException)
+        catch (SqlException e)
         {
-            Console.WriteLine("Something went wrong connecting to the DB...");
+            Log.Error(e, "An execption was thrown while adding the User.");
         }
 
         return returnUser;
@@ -49,7 +50,37 @@ public class UserDBAccess : IDBAccess<User>
 
     public List<User> GetAll()
     {
-        throw new NotImplementedException();
+        List<User> users = new List<User>();
+
+        try
+        {
+            using SqlConnection connection = _factory.GetConnection();
+            connection.Open();
+
+            SqlCommand command = new SqlCommand(@"SELECT * FROM Users;", connection);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            if(reader.HasRows)
+            {
+                while(reader.Read())
+                {
+                    User user = new User();
+                    user.id = (Guid) reader["id"];
+                    user.username = (string) reader["username"];
+                    user.password = (string) reader["password"];
+
+                    users.Add(user);
+                }
+            }
+
+        }
+        catch (SqlException e)
+        {
+            Log.Error(e, "An execption was thrown while retrieving all Users.");
+        }
+
+        return users;
     }
 
     public User GetById(int id)

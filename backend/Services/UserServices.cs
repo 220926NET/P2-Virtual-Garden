@@ -13,6 +13,17 @@ public class UserServices : IServices<User>
 
     public User Add(User newUser)
     {
+        List<User> users = GetAll();
+
+        foreach (User user in users)
+        {
+            if (newUser.username == user.username)
+            {
+                newUser.username = null;
+                newUser.password = null;
+                return newUser;
+            }
+        }
         return _userDatabase.Add(newUser);
     }
 
@@ -23,7 +34,7 @@ public class UserServices : IServices<User>
 
     public List<User> GetAll()
     {
-        throw new NotImplementedException();
+        return _userDatabase.GetAll();
     }
 
     public User Update(User t)

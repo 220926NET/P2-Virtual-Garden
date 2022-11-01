@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
+using Serilog;
 
 namespace API.Controllers;
 
@@ -23,13 +24,16 @@ public class UserController : ControllerBase
     [Route("register")]
     public ActionResult<User> Add(User newUser)
     {
+        Log.Information("Adding new User.");
         User returnUser = _userService.Add(newUser);
 
-        if (returnUser.username != "")
+        if (returnUser.username != null && returnUser.password!= null)
         {
+            Log.Information("User successfully registered");
             return Created("User successfully registered", returnUser);
         }
 
+        Log.Information("Username already exists");
         return BadRequest("Username already exists");
     } 
 }
