@@ -11,9 +11,9 @@ public class UserController : ControllerBase
 {
 
     private readonly ILogger<UserController> _logger;
-    private readonly IServices<User> _userService;
+    private readonly IUserServices _userService;
 
-    public UserController(ILogger<UserController> logger, IServices<User> userService)
+    public UserController(ILogger<UserController> logger, IUserServices userService)
     {
         _logger = logger;
         _userService = userService;
@@ -25,15 +25,32 @@ public class UserController : ControllerBase
     public ActionResult<User> Add(User newUser)
     {
         Log.Information("Adding new User.");
-        User returnUser = _userService.Add(newUser);
+        User resultUser = _userService.Add(newUser);
 
-        if (returnUser.username != null && returnUser.password!= null)
+        if (resultUser.username != null && resultUser.password!= null)
         {
             Log.Information("User successfully registered");
-            return Created("User successfully registered", returnUser);
+            return Created("User successfully registered", resultUser);
         }
 
         Log.Information("Username already exists");
         return BadRequest("Username already exists");
+    }
+
+    [HttpPost]
+    [Route("login")]
+    public ActionResult<User> Login(User loginUser)
+    {
+        Log.Information("Login check");
+        User resultUser = _userService.Login(loginUser);
+
+        if (resultUser.id == loginUser.id)
+        {
+            Log.Information("Login Failed");
+            return BadRequest("Login Failed");
+        }
+
+        return Ok("Login Successful");
+        
     } 
 }

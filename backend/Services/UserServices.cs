@@ -2,7 +2,7 @@
 using DataAccess;
 
 namespace Services;
-public class UserServices : IServices<User>
+public class UserServices : IUserServices
 {
     IDBAccess<User> _userDatabase;
 
@@ -45,5 +45,17 @@ public class UserServices : IServices<User>
     public User Delete(User t)
     {
         throw new NotImplementedException();
+    }
+
+    public User Login(User loginUser)
+    {
+        List<User> users = GetAll();
+
+        foreach (User user in users)
+        {
+            if (loginUser.username == user.username && loginUser.password == user.password) return user;
+        }
+
+        return loginUser;
     }
 }
