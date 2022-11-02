@@ -1,9 +1,27 @@
-/* .parentContainer{
-    display:flex;
-} */
+.userArea{
+    height:80%;
+}
 
-.parentContainer-1{
+.userBanner{
+    height:20%;
+}
+.parentContainer{
+    height:80%;
+    background-color: blueviolet;
     display:flex;
     justify-content: space-between;
-    flex-grow:1;
+    gap:10pt;
+}
+app-tools{
+    flex:1;
+    background-color: aquamarine;
+}
+app-garden{
+    flex:3;
+    height:100%;
+    background-color: blanchedalmond;
+}
+app-post{
+    flex:1;
+    background-color: lightcoral;
 }
