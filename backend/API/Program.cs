@@ -18,7 +18,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IServices<User>, UserServices>();
+builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<IServices<Post>, PostServices>();
 builder.Services.AddScoped<IServices<FriendRelationship>, FriendServices>();
 builder.Services.AddScoped<IServices<Garden>, GardenServices>();
