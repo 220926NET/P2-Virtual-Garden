@@ -20,6 +20,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<IServices<Post>, PostServices>();
+builder.Services.AddScoped<IServices<FriendRelationship>, FriendServices>();
 builder.Services.AddScoped<IDBAccessFactory, DBAccessFactory>();
 
 var app = builder.Build();
