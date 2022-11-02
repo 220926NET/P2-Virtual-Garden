@@ -13,9 +13,20 @@ public class GardenDBAccess : IDBAccess<Garden>
         _factory = factory;
     }
 
-    public Garden Add(Garden t)
+    public Garden Add(Garden garden)
     {
-        throw new NotImplementedException();
+        Garden temp = new();
+
+        try
+        {
+
+        }
+        catch (SqlException e)
+        {
+            Log.Error(e, "An error occured while creating a new garden resource");
+        }
+
+        return temp;
     }
 
     public Garden Delete(Garden t)
