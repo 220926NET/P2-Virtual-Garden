@@ -26,10 +26,10 @@ public class FriendController : ControllerBase
         FriendRelationShip temp = _friendService.Add(friend);
         if (!string.IsNullOrEmpty(temp.username))
         {
-            Log.Information("A post has been created on the API layer");
+            Log.Information($"Friendship between {friend.username} and {friend.friendname} registered");
             return Created("", temp);
         }
-        Log.Error($"Post failed to add, information: {temp}");
-        return BadRequest("Failed to create a post!");
+        Log.Error($"Unable to register new friendship between {friend.username} and {friend.friendname}");
+        return BadRequest("Failed to register friend relationship!");
     }
 }
