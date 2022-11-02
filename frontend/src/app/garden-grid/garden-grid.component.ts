@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-garden-grid',
   templateUrl: './garden-grid.component.html',
@@ -12,6 +13,9 @@ export class GardenGridComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  
+  GetTileId(e:Event): void{
+    let elementId: string = (e.target as Element).id;
+    console.log(elementId);
+  }
 
 }
