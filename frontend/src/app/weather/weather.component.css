@@ -1,0 +1,15 @@
+.weatherArea{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height:100%;
+    width:100%;
+    background-image: url("../../../../Assets/WeatherGifs/Rainy.gif");
+    background-size: contain;
+}
+
+.gardenGridArea{
+    height:90%;
+    width:90%;
+}
