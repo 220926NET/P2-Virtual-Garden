@@ -14,7 +14,7 @@ public class GardenServices : IServices<Garden>
 
     public Garden Add(Garden t)
     {
-        throw new NotImplementedException();
+        return _gardenDatabase.Add(t);
     }
 
     public Garden Delete(Garden t)
