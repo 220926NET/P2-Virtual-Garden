@@ -9,7 +9,7 @@ public class FriendServices : IServices<FriendRelationship>
 
     public FriendServices(IDBAccessFactory factory)
     {
-        _friendDatabase = factory.getFriendDB();
+        _friendDatabase = factory.GetFriendDB();
     }
 
     public FriendRelationship Add(FriendRelationship t)

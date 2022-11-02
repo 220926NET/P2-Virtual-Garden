@@ -21,6 +21,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IServices<User>, UserServices>();
 builder.Services.AddScoped<IServices<Post>, PostServices>();
 builder.Services.AddScoped<IServices<FriendRelationship>, FriendServices>();
+builder.Services.AddScoped<IServices<Garden>, GardenServices>();
 builder.Services.AddScoped<IDBAccessFactory, DBAccessFactory>();
 
 var app = builder.Build();
