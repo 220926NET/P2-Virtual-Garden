@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
+
 export class PostComponent implements OnInit {
 
   constructor() { }
@@ -12,4 +13,15 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openForm() {
+    
+    document.getElementById("myForm")!.style.display = "block";
+
+  }
+  
+  closeForm() {
+    document.getElementById("myForm")!.style.display = "none";
+  }
+
 }
+

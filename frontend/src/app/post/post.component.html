@@ -1,6 +1,18 @@
 <div class = "postContainer">
     <div class="addPost">
-            <p>Add a post here</p>
+        <button class="open-button" (click)="openForm()">Write</button>
+
+        <div class="chat-popup" id="myForm">
+            <form action="/action_page.php" class="form-container">
+                <h2>Comment</h2>
+
+                <label for="msg"><b>Message</b></label>
+                <textarea placeholder="Type message.." name="msg" required></textarea>
+
+                <button type="submit" class="btn">Send</button>
+                <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
+            </form>
+        </div>
     </div>
     <div class="displayPosts">
         <p>See All Posts here</p>
