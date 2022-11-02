@@ -3,7 +3,7 @@ using Models;
 using Serilog;
 namespace DataAccess;
 
-public class FriendDBAccess : IDBAccess<FriendRelationShip>
+public class FriendDBAccess : IDBAccess<FriendRelationship>
 {
     private readonly SqlConnectionFactory _factory;
 
@@ -12,9 +12,9 @@ public class FriendDBAccess : IDBAccess<FriendRelationShip>
         this._factory = factory;
     }
 
-    public FriendRelationShip Add(FriendRelationShip t)
+    public FriendRelationship Add(FriendRelationship t)
     {
-        FriendRelationShip temp = new();
+        FriendRelationship temp = new();
         Guid u = Guid.Empty, f = Guid.Empty;
         try
         {
@@ -74,22 +74,22 @@ public class FriendDBAccess : IDBAccess<FriendRelationShip>
         return temp;
     }
 
-    public FriendRelationShip Delete(FriendRelationShip t)
+    public FriendRelationship Delete(FriendRelationship t)
     {
         throw new NotImplementedException();
     }
 
-    public List<FriendRelationShip> GetAll()
+    public List<FriendRelationship> GetAll()
     {
         throw new NotImplementedException();
     }
 
-    public FriendRelationShip GetById(int id)
+    public FriendRelationship GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public FriendRelationShip Update(FriendRelationShip t)
+    public FriendRelationship Update(FriendRelationship t)
     {
         throw new NotImplementedException();
     }

@@ -3,36 +3,36 @@ using DataAccess;
 
 namespace Services;
 
-public class FriendServices : IServices<FriendRelationShip>
+public class FriendServices : IServices<FriendRelationship>
 {
-    private readonly IDBAccess<FriendRelationShip> _friendDatabase;
+    private readonly IDBAccess<FriendRelationship> _friendDatabase;
 
     public FriendServices(IDBAccessFactory factory)
     {
         _friendDatabase = factory.getFriendDB();
     }
 
-    public FriendRelationShip Add(FriendRelationShip t)
+    public FriendRelationship Add(FriendRelationship t)
     {
         return _friendDatabase.Add(t);
     }
 
-    public FriendRelationShip Delete(FriendRelationShip t)
+    public FriendRelationship Delete(FriendRelationship t)
     {
         throw new NotImplementedException();
     }
 
-    public List<FriendRelationShip> GetAll()
+    public List<FriendRelationship> GetAll()
     {
         throw new NotImplementedException();
     }
 
-    public FriendRelationShip GetById(int id)
+    public FriendRelationship GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public FriendRelationShip Update(FriendRelationShip t)
+    public FriendRelationship Update(FriendRelationship t)
     {
         throw new NotImplementedException();
     }

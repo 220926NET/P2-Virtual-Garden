@@ -11,9 +11,9 @@ public class FriendController : ControllerBase
 {
 
     private readonly ILogger<FriendController> _logger;
-    private readonly IServices<FriendRelationShip> _friendService;
+    private readonly IServices<FriendRelationship> _friendService;
 
-    public FriendController(ILogger<FriendController> logger, IServices<FriendRelationShip> friendService)
+    public FriendController(ILogger<FriendController> logger, IServices<FriendRelationship> friendService)
     {
         _logger = logger;
         _friendService = friendService;
@@ -21,9 +21,9 @@ public class FriendController : ControllerBase
 
     [HttpPost]
     [Route("add-friend")]
-    public ActionResult<Post> Add(FriendRelationShip friend)
+    public ActionResult<FriendRelationship> Add(FriendRelationship friend)
     {
-        FriendRelationShip temp = _friendService.Add(friend);
+        FriendRelationship temp = _friendService.Add(friend);
         if (!string.IsNullOrEmpty(temp.username))
         {
             Log.Information($"Friendship between {friend.username} and {friend.friendname} registered");

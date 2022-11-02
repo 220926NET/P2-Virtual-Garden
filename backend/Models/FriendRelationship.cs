@@ -1,6 +1,6 @@
 namespace Models;
 
-public class FriendRelationShip
+public class FriendRelationship
 {
     public string username { get; set; } = "";
     public string friendname { get; set; } = "";
