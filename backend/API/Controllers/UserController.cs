@@ -29,11 +29,11 @@ public class UserController : ControllerBase
 
         if (resultUser.username != null && resultUser.password!= null)
         {
-            Log.Information("User successfully registered");
+            _logger.LogInformation("User successfully registered");
             return Created("User successfully registered", resultUser);
         }
 
-        Log.Information("Username already exists");
+        _logger.LogInformation("Username already exists");
         return BadRequest("Username already exists");
     }
 
@@ -41,15 +41,16 @@ public class UserController : ControllerBase
     [Route("login")]
     public ActionResult<User> Login(User loginUser)
     {
-        Log.Information("Login check");
+        _logger.LogInformation("Login check");
         User resultUser = _userService.Login(loginUser);
 
         if (resultUser.id == loginUser.id)
         {
-            Log.Information("Login Failed");
+            _logger.LogInformation("Login Failed");
             return BadRequest("Login Failed");
         }
 
+        _logger.LogInformation("Login Successful");
         return Ok("Login Successful");
         
     } 
