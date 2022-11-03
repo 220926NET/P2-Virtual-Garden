@@ -58,7 +58,7 @@ public class PostDBAccess : IDBAccess<Post>
         throw new NotImplementedException();
     }
 
-    public Post GetById(int id)
+    public Post GetById(Guid id)
     {
         throw new NotImplementedException();
     }

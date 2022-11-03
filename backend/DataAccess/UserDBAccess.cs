@@ -30,13 +30,13 @@ public class UserDBAccess : IDBAccess<User>
 
             SqlDataReader reader = command.ExecuteReader();
 
-            if(reader.HasRows)
+            if (reader.HasRows)
             {
                 reader.Read();
-                returnUser.id = (Guid) reader["id"];
-                returnUser.username = (string) reader["username"];
-                returnUser.password = (string) reader["password"];
-                
+                returnUser.id = (Guid)reader["id"];
+                returnUser.username = (string)reader["username"];
+                returnUser.password = (string)reader["password"];
+
             }
 
         }
@@ -61,14 +61,14 @@ public class UserDBAccess : IDBAccess<User>
 
             SqlDataReader reader = command.ExecuteReader();
 
-            if(reader.HasRows)
+            if (reader.HasRows)
             {
-                while(reader.Read())
+                while (reader.Read())
                 {
                     User user = new User();
-                    user.id = (Guid) reader["id"];
-                    user.username = (string) reader["username"];
-                    user.password = (string) reader["password"];
+                    user.id = (Guid)reader["id"];
+                    user.username = (string)reader["username"];
+                    user.password = (string)reader["password"];
 
                     users.Add(user);
                 }
@@ -83,7 +83,7 @@ public class UserDBAccess : IDBAccess<User>
         return users;
     }
 
-    public User GetById(int id)
+    public User GetById(Guid id)
     {
         throw new NotImplementedException();
     }
