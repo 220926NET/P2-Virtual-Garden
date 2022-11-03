@@ -22,12 +22,12 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [Route("register")]
-    public ActionResult<User> Add(User newUser)
+    public ActionResult<User> Add(UserDto newUser)
     {
         Log.Information("Adding new User.");
         User resultUser = _userService.Add(newUser);
 
-        if (resultUser.username != null && resultUser.password!= null)
+        if (resultUser.username != string.Empty)
         {
             _logger.LogInformation("User successfully registered");
             return Created("User successfully registered", resultUser);
@@ -39,12 +39,12 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [Route("login")]
-    public ActionResult<User> Login(User loginUser)
+    public ActionResult<User> Login(UserDto loginUser)
     {
         _logger.LogInformation("Login check");
         User resultUser = _userService.Login(loginUser);
 
-        if (resultUser.id == loginUser.id)
+        if (resultUser.username == loginUser.username)
         {
             _logger.LogInformation("Login Failed");
             return BadRequest("Login Failed");
