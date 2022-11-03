@@ -41,7 +41,7 @@ public class GardenDBAccess : IDBAccess<Garden>
                 for (int i = 0; i < 16; i++)
                 {
                     Tile tile = new Tile { garden_id = temp.id, position = i };
-                    cmd.CommandText = @"insert into Tiles 
+                    cmd.CommandText = @"insert into Tile 
                                         (id,gardenId,position,plantId,plantTime,groundTime) 
                                             VALUES
                                         (@id,@gid,@pos,@pid,@pt,@gt);";
@@ -55,7 +55,7 @@ public class GardenDBAccess : IDBAccess<Garden>
                 }
 
             }
-            temp = GetById(temp.id);
+            temp = GetById(temp.user_id);
         }
         catch (SqlException e)
         {
@@ -90,7 +90,38 @@ public class GardenDBAccess : IDBAccess<Garden>
 
         try
         {
+            using SqlConnection connection = _factory.GetConnection();
+            SqlCommand cmd = new SqlCommand(@"
+                select * from garden where User_id = @id;
+            ", connection);
+            cmd.Parameters.AddWithValue("@id", id);
 
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                reader.Read();
+                temp.user_id = id;
+                temp.id = (Guid)reader["id"];
+
+                reader.Close();
+
+                cmd = new SqlCommand("select * from Tile where gardenId = @gid", connection);
+                reader = cmd.ExecuteReader();
+                while (reader.HasRows)
+                {
+                    reader.Read();
+                    Tile tile = new Tile
+                    {
+                        id = (Guid)reader["id"],
+                        garden_id = (Guid)reader["gardenId"],
+                        position = (int)reader["position"],
+                        plant_id = (Guid)reader["plantId"],
+                        plant_time = (DateTime)reader["plantTime"],
+                        ground_time = (DateTime)reader["groundTime"]
+                    };
+                    temp.tiles.Add(tile);
+                }
+            }
         }
         catch (SqlException e)
         {
