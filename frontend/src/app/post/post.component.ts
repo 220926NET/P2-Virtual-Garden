@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-post',
@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class PostComponent implements OnInit {
-
+msg: any;
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -21,6 +22,12 @@ export class PostComponent implements OnInit {
   
   closeForm() {
     document.getElementById("myForm")!.style.display = "none";
+  }
+
+  submitMessage(){
+    const val = (<HTMLInputElement>document.getElementById("text")).value;
+    this.newTextBox = 
+
   }
 
 }
