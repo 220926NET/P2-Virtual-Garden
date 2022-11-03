@@ -24,7 +24,7 @@ public class UserDBAccess : IDBAccess<User>
             SqlCommand command = new SqlCommand(@"INSERT INTO Users (id, username, password) 
             VALUES (@id, @username, @password); 
             SELECT * FROM Users WHERE id = @id", connection);
-            command.Parameters.AddWithValue("@id", newUser.id);
+            command.Parameters.AddWithValue("@id", returnUser.id);
             command.Parameters.AddWithValue("@username", newUser.username);
             command.Parameters.AddWithValue("@password", newUser.password);
 
