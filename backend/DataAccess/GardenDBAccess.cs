@@ -17,6 +17,7 @@ public class GardenDBAccess : IDBAccess<Garden>
     {
         Garden temp = new();
         using SqlConnection connection = _factory.GetConnection();
+        connection.Open();
         SqlTransaction transaction = connection.BeginTransaction();
 
         SqlCommand cmd = new SqlCommand();
@@ -24,13 +25,15 @@ public class GardenDBAccess : IDBAccess<Garden>
         cmd.Transaction = transaction;
         try
         {
-            cmd.CommandText = "select id from Plants where name = 'dirt';";
-            SqlDataReader reader = cmd.ExecuteReader();
+            SqlConnection cn = _factory.GetConnection();
+            cn.Open();
+            SqlCommand c = new SqlCommand("select id from Plants where name = 'dirt';", cn);
+            SqlDataReader reader = c.ExecuteReader();
             if (reader.HasRows)
             {
                 reader.Read();
                 Guid dirt_id = (Guid)reader["id"];
-                reader.Close();
+                cn.Close();
 
                 cmd.CommandText = "insert into Garden (id,User_id) values (@gid,@uid);";
                 cmd.Parameters.AddWithValue("@gid", temp.id);
@@ -40,14 +43,14 @@ public class GardenDBAccess : IDBAccess<Garden>
 
                 for (int i = 0; i < 16; i++)
                 {
+                    cmd = new SqlCommand();
+                    cmd.Connection = connection;
+                    cmd.Transaction = transaction;
                     Tile tile = new Tile { garden_id = temp.id, position = i };
-                    cmd.CommandText = @"insert into Tile 
-                                        (id,gardenId,position,plantId,plantTime,groundTime) 
-                                            VALUES
-                                        (@id,@gid,@pos,@pid,@pt,@gt);";
-                    cmd.Parameters.AddWithValue("@id", tile.id);
-                    cmd.Parameters.AddWithValue("@gid", temp.id);
-                    cmd.Parameters.AddWithValue("@pos", i);
+                    cmd.CommandText = $"insert into Tile (id,gardenId,position,plantId,plantTime,groundTime) VALUES (@id,@g,@p,@pid,@pt,@gt);";
+                    cmd.Parameters.AddWithValue($"@id", tile.id);
+                    cmd.Parameters.AddWithValue("@g", temp.id);
+                    cmd.Parameters.AddWithValue("@p", i);
                     cmd.Parameters.AddWithValue("@pid", dirt_id);
                     cmd.Parameters.AddWithValue("@pt", tile.plant_time);
                     cmd.Parameters.AddWithValue("@gt", tile.ground_time);
@@ -55,6 +58,7 @@ public class GardenDBAccess : IDBAccess<Garden>
                 }
 
             }
+            transaction.Commit();
             temp = GetById(temp.user_id);
         }
         catch (SqlException e)
@@ -91,6 +95,7 @@ public class GardenDBAccess : IDBAccess<Garden>
         try
         {
             using SqlConnection connection = _factory.GetConnection();
+            connection.Open();
             SqlCommand cmd = new SqlCommand(@"
                 select * from garden where User_id = @id;
             ", connection);
@@ -103,7 +108,8 @@ public class GardenDBAccess : IDBAccess<Garden>
                 temp.user_id = id;
                 temp.id = (Guid)reader["id"];
 
-                reader.Close();
+                connection.Close();
+                connection.Open();
 
                 cmd = new SqlCommand("select * from Tile where gardenId = @gid", connection);
                 reader = cmd.ExecuteReader();
