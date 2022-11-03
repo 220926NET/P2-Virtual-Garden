@@ -7,6 +7,7 @@ import { ToolsComponent } from './tools/tools.component';
 import { GardenComponent } from './garden/garden.component';
 import { PostComponent } from './post/post.component';
 import { GardenGridComponent } from './garden-grid/garden-grid.component';
+import { WeatherComponent } from './weather/weather.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { GardenGridComponent } from './garden-grid/garden-grid.component';
     ToolsComponent,
     GardenComponent,
     PostComponent,
-    GardenGridComponent
+    GardenGridComponent,
+    WeatherComponent
   ],
   imports: [
     BrowserModule

@@ -2,7 +2,12 @@ using Models;
 
 namespace Services;
 
-public interface IUserServices : IServices<User>
+public interface IUserServices
 {
-    User Login(User user);
+    User Login(UserDto user);
+    User Add(UserDto user);
+    User GetById(int id);
+    List<User> GetAll();
+    User Update(UserDto user);
+    User Delete(UserDto user);
 }
