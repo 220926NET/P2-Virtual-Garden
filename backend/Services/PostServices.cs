@@ -9,7 +9,7 @@ public class PostServices : IServices<Post>
 
     public PostServices(IDBAccessFactory factory)
     {
-        _postDatabase = factory.getPostDB();
+        _postDatabase = factory.GetPostDB();
     }
 
     public Post Add(Post t)
