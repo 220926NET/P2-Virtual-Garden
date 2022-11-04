@@ -59,6 +59,7 @@ public class GardenDBAccess : IDBAccess<Garden>
 
             }
             transaction.Commit();
+            temp.user_id = garden.user_id;
             temp = GetById(temp.user_id);
         }
         catch (SqlException e)
@@ -100,7 +101,6 @@ public class GardenDBAccess : IDBAccess<Garden>
                 select * from garden where User_id = @id;
             ", connection);
             cmd.Parameters.AddWithValue("@id", id);
-
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
@@ -111,21 +111,32 @@ public class GardenDBAccess : IDBAccess<Garden>
                 connection.Close();
                 connection.Open();
 
-                cmd = new SqlCommand("select * from Tile where gardenId = @gid", connection);
-                reader = cmd.ExecuteReader();
-                while (reader.HasRows)
+                cmd = new SqlCommand("select * from Tile where gardenId = @g;", connection);
+                cmd.Parameters.AddWithValue("@g", temp.id);
+                SqlDataReader r = cmd.ExecuteReader();
+                if (r.HasRows)
                 {
-                    reader.Read();
-                    Tile tile = new Tile
+                    while (r.Read())
                     {
-                        id = (Guid)reader["id"],
-                        garden_id = (Guid)reader["gardenId"],
-                        position = (int)reader["position"],
-                        plant_id = (Guid)reader["plantId"],
-                        plant_time = (DateTime)reader["plantTime"],
-                        ground_time = (DateTime)reader["groundTime"]
-                    };
-                    temp.tiles.Add(tile);
+                        Guid tid = (Guid)r["id"];
+                        Guid garden_id = (Guid)r["gardenId"];
+                        int position = (int)r["position"];
+                        Guid plant_id = (Guid)r["plantId"];
+                        DateTime plant_time = (DateTime)r["plantTime"];
+                        DateTime ground_time = (DateTime)r["groundTime"];
+
+                        Tile tile = new Tile
+                        {
+                            id = tid,
+                            garden_id = garden_id,
+                            position = position,
+                            plant_id = plant_id,
+                            plant_time = plant_time,
+                            ground_time = ground_time
+                        };
+                        temp.tiles.Add(tile);
+                        Log.Information($"{tile.id}");
+                    }
                 }
             }
         }

@@ -24,7 +24,7 @@ public class GardenController : ControllerBase
     public ActionResult<Post> Add(Garden garden)
     {
         Garden temp = _gardenService.Add(garden);
-        if (temp.user_id == Guid.Empty)
+        if (temp.user_id != Guid.Empty)
         {
             Log.Information($"A garden has been created for {garden.user_id}");
             return Created("", temp);
