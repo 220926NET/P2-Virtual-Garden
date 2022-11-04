@@ -78,9 +78,9 @@ public class ModelsTests
     public void PlantValid()
     {
         Plant p = new();
-        p.sender_id = Guid.NewGuid();
-        p.reciver_id = Guid.NewGuid();
-        p.text = "some text";
+        p.name = "place holder name";
+        p.growth_minuets = 0;
+        p.worth = 0;
         PlantValidator validator = new PlantValidator();
         Assert.NotNull(p);
         Assert.True(validator.isValid(p));
