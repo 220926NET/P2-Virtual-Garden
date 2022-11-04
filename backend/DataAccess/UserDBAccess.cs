@@ -21,22 +21,24 @@ public class UserDBAccess : IDBAccess<User>
             using SqlConnection connection = _factory.GetConnection();
             connection.Open();
 
-            SqlCommand command = new SqlCommand(@"INSERT INTO Users (id, username, password) 
-            VALUES (@id, @username, @password); 
+            SqlCommand command = new SqlCommand(@"INSERT INTO Users (id, username, passwordHash, passwordSalt) 
+            VALUES (@id, @username, @passwordHash, @passwordSalt); 
             SELECT * FROM Users WHERE id = @id", connection);
             command.Parameters.AddWithValue("@id", newUser.id);
             command.Parameters.AddWithValue("@username", newUser.username);
-            command.Parameters.AddWithValue("@password", newUser.password);
+            command.Parameters.AddWithValue("@passwordHash", newUser.passwordHash);
+            command.Parameters.AddWithValue("@passwordSalt", newUser.passwordSalt);
 
             SqlDataReader reader = command.ExecuteReader();
 
-            if(reader.HasRows)
+            if (reader.HasRows)
             {
                 reader.Read();
-                returnUser.id = (Guid) reader["id"];
-                returnUser.username = (string) reader["username"];
-                returnUser.password = (string) reader["password"];
-                
+                returnUser.id = (Guid)reader["id"];
+                returnUser.username = (string)reader["username"];
+                returnUser.passwordHash = (byte[])reader["passwordHash"];
+                returnUser.passwordSalt = (byte[])reader["passwordSalt"];
+
             }
 
         }
@@ -61,14 +63,15 @@ public class UserDBAccess : IDBAccess<User>
 
             SqlDataReader reader = command.ExecuteReader();
 
-            if(reader.HasRows)
+            if (reader.HasRows)
             {
-                while(reader.Read())
+                while (reader.Read())
                 {
                     User user = new User();
-                    user.id = (Guid) reader["id"];
-                    user.username = (string) reader["username"];
-                    user.password = (string) reader["password"];
+                    user.id = (Guid)reader["id"];
+                    user.username = (string)reader["username"];
+                    user.passwordHash = (byte[])reader["passwordHash"];
+                    user.passwordSalt = (byte[])reader["passwordSalt"];
 
                     users.Add(user);
                 }
@@ -83,7 +86,7 @@ public class UserDBAccess : IDBAccess<User>
         return users;
     }
 
-    public User GetById(int id)
+    public User GetById(Guid id)
     {
         throw new NotImplementedException();
     }

@@ -5,6 +5,7 @@ namespace Services;
 public interface IDBAccessFactory
 {
     public IDBAccess<User> GetUserDB();
-    public IDBAccess<Post> getPostDB();
-    IDBAccess<FriendRelationship> getFriendDB();
+    public IDBAccess<Post> GetPostDB();
+    IDBAccess<FriendRelationship> GetFriendDB();
+    IDBAccess<Garden> GetGardenDB();
 }

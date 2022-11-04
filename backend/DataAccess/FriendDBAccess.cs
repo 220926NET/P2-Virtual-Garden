@@ -84,7 +84,7 @@ public class FriendDBAccess : IDBAccess<FriendRelationship>
         throw new NotImplementedException();
     }
 
-    public FriendRelationship GetById(int id)
+    public FriendRelationship GetById(Guid id)
     {
         throw new NotImplementedException();
     }
