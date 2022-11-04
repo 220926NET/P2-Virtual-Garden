@@ -106,4 +106,29 @@ public class ModelsTests
         Assert.NotNull(p);
         Assert.True(validator.isValid(p));
     }
+
+    [Fact]
+    public void GardenCreated()
+    {
+        Garden p = new();
+        GardenValidator validator = new GardenValidator();
+        Assert.NotNull(p);
+        Assert.False(validator.isValid(p));
+    }
+
+    [Fact]
+    public void GardenValid()
+    {
+        Garden p = new();
+        p.user_id = Guid.NewGuid();
+        p.tiles = new List<Tile>();
+        Tile tile = new();
+        tile.garden_id = Guid.NewGuid();
+        tile.position = 0;
+        tile.plant_id = Guid.NewGuid();
+        p.tiles.Add(tile);
+        GardenValidator validator = new GardenValidator();
+        Assert.NotNull(p);
+        Assert.True(validator.isValid(p));
+    }
 }
