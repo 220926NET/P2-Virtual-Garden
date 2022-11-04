@@ -1,4 +1,4 @@
-namespace Models.Validation;
+namespace Models;
 
 public class PlantStateValidator : IValidate<PlantState>
 {

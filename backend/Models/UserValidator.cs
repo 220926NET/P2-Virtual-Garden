@@ -1,6 +1,6 @@
-namespace Models.Validation;
+namespace Models;
 
-public class UserValidatior : IValidate<User>
+public class UserValidator : IValidate<User>
 {
     public bool isValid(User toCheck)
     {

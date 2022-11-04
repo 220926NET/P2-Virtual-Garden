@@ -1,6 +1,6 @@
-namespace Models.Validation;
+namespace Models;
 
-public class PlantValidatior : IValidate<Plant>
+public class PlantValidator : IValidate<Plant>
 {
     public bool isValid(Plant toCheck)
     {

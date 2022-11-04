@@ -1,4 +1,4 @@
-namespace Models.Validation;
+namespace Models;
 
 public interface IValidate<T>
 {

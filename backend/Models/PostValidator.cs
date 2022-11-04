@@ -1,6 +1,6 @@
-namespace Models.Validation;
+namespace Models;
 
-public class PostValidatior : IValidate<Post>
+public class PostValidator : IValidate<Post>
 {
     public bool isValid(Post toCheck)
     {

@@ -1,6 +1,6 @@
-namespace Models.Validation;
+namespace Models;
 
-public class TileValidatior : IValidate<Tile>
+public class TileValidator : IValidate<Tile>
 {
     public bool isValid(Tile toCheck)
     {
