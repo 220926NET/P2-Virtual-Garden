@@ -33,6 +33,27 @@ public class ModelsTests
     }
 
     [Fact]
+    public void PostCreated()
+    {
+        Post p = new();
+        PostValidator validator = new PostValidator();
+        Assert.NotNull(p);
+        Assert.False(validator.isValid(p));
+    }
+
+    [Fact]
+    public void PostValid()
+    {
+        Post p = new();
+        p.sender_id = Guid.NewGuid();
+        p.reciver_id = Guid.NewGuid();
+        p.text = "some text";
+        PostValidator validator = new PostValidator();
+        Assert.NotNull(p);
+        Assert.True(validator.isValid(p));
+    }
+
+    [Fact]
     public void TileValid()
     {
         Tile tile = new();
@@ -42,5 +63,26 @@ public class ModelsTests
         TileValidator validator = new TileValidator();
         Assert.NotNull(tile);
         Assert.True(validator.isValid(tile));
+    }
+
+    [Fact]
+    public void PlantCreated()
+    {
+        Plant p = new();
+        PlantValidator validator = new PlantValidator();
+        Assert.NotNull(p);
+        Assert.False(validator.isValid(p));
+    }
+
+    [Fact]
+    public void PlantValid()
+    {
+        Plant p = new();
+        p.sender_id = Guid.NewGuid();
+        p.reciver_id = Guid.NewGuid();
+        p.text = "some text";
+        PlantValidator validator = new PlantValidator();
+        Assert.NotNull(p);
+        Assert.True(validator.isValid(p));
     }
 }
