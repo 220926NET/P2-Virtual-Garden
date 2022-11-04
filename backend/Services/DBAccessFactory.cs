@@ -7,12 +7,17 @@ public class DBAccessFactory : IDBAccessFactory
 {
     private readonly SqlConnectionFactory _connection = new SqlConnectionFactory();
 
-    public IDBAccess<FriendRelationship> getFriendDB()
+    public IDBAccess<FriendRelationship> GetFriendDB()
     {
         return new FriendDBAccess(_connection);
     }
 
-    public IDBAccess<Post> getPostDB()
+    public IDBAccess<Garden> GetGardenDB()
+    {
+        return new GardenDBAccess(_connection);
+    }
+
+    public IDBAccess<Post> GetPostDB()
     {
         return new PostDBAccess(_connection);
     }
