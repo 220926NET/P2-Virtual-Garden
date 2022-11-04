@@ -108,26 +108,21 @@ public class ModelsTests
     }
 
     [Fact]
-    public void GardenCreated()
+    public void FriendRelationshipCreated()
     {
-        Garden p = new();
-        GardenValidator validator = new GardenValidator();
+        FriendRelationship p = new();
+        FriendRelationshipValidator validator = new FriendRelationshipValidator();
         Assert.NotNull(p);
         Assert.False(validator.isValid(p));
     }
 
     [Fact]
-    public void GardenValid()
+    public void FriendRelationshipValid()
     {
-        Garden p = new();
-        p.user_id = Guid.NewGuid();
-        p.tiles = new List<Tile>();
-        Tile tile = new();
-        tile.garden_id = Guid.NewGuid();
-        tile.position = 0;
-        tile.plant_id = Guid.NewGuid();
-        p.tiles.Add(tile);
-        GardenValidator validator = new GardenValidator();
+        FriendRelationship p = new();
+        p.username = "me";
+        p.friendname = "someone else";
+        FriendRelationshipValidator validator = new FriendRelationshipValidator();
         Assert.NotNull(p);
         Assert.True(validator.isValid(p));
     }

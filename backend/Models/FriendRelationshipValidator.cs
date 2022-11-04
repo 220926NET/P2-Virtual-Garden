@@ -1,6 +1,6 @@
 namespace Models;
 
-public class FriendRealationshipValidator : IValidate<FriendRelationship>
+public class FriendRelationshipValidator : IValidate<FriendRelationship>
 {
     public bool isValid(FriendRelationship toCheck)
     {
