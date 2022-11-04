@@ -8,6 +8,7 @@ import { GardenComponent } from './garden/garden.component';
 import { PostComponent } from './post/post.component';
 import { GardenGridComponent } from './garden-grid/garden-grid.component';
 import { WeatherComponent } from './weather/weather.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { WeatherComponent } from './weather/weather.component';
     WeatherComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
