@@ -1,8 +1,6 @@
 ﻿using Models;
 using DataAccess;
 using System.Security.Cryptography;
-using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Services;
 public class UserServices : IUserServices
@@ -91,18 +89,6 @@ public class UserServices : IUserServices
             var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             return computedHash.SequenceEqual(passwordHash);
         }
-    }
-
-    private string CreateToken(User user)
-    {
-        List<Claim> claims = new List<Claim> 
-        {
-            new Claim(ClaimTypes.Name, user.username)
-        };
-
-        SymmetricSecurityKey key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(""));
-        
-        return "";
     }
 
 }
