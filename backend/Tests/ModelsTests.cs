@@ -85,4 +85,25 @@ public class ModelsTests
         Assert.NotNull(p);
         Assert.True(validator.isValid(p));
     }
+
+    [Fact]
+    public void PlantStateCreated()
+    {
+        PlantState p = new();
+        PlantStateValidator validator = new PlantStateValidator();
+        Assert.NotNull(p);
+        Assert.False(validator.isValid(p));
+    }
+
+    [Fact]
+    public void PlantStateValid()
+    {
+        PlantState p = new();
+        p.plant_id = Guid.NewGuid();
+        p.state = 0;
+        p.image = "who's reading these lol";
+        PlantStateValidator validator = new PlantStateValidator();
+        Assert.NotNull(p);
+        Assert.True(validator.isValid(p));
+    }
 }
