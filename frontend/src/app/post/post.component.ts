@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-post',
@@ -6,13 +7,14 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./post.component.css']
 })
 
-export class PostComponent implements OnInit {
-msg: any;
-  
+export class PostComponent implements OnInit{
+
+  comments: string[] = [];
+
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
+
 
   openForm() {
     
@@ -25,8 +27,6 @@ msg: any;
   }
 
   submitMessage(){
-    const val = (<HTMLInputElement>document.getElementById("text")).value;
-    this.newTextBox = 
 
   }
 

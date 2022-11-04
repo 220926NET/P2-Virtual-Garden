@@ -25,7 +25,7 @@
   .form-container {
     max-width: 300px;
     padding: 10px;
-    background-color: white;
+    background-color: peachpuff;
   }
   
   /* Full-width textarea */
@@ -36,7 +36,7 @@
     border: none;
     background: #f1f1f1;
     resize: none;
-    min-height: 200px;
+    min-height: 150px;
   }
   
   /* When the textarea gets focus, do something */
@@ -49,7 +49,7 @@
   .form-container .btn {
     background-color: #04AA6D;
     color: white;
-    padding: 16px 20px;
+    padding: 10px 20px;
     border: none;
     cursor: pointer;
     width: 100%;
@@ -65,4 +65,12 @@
   /* Add some hover effects to buttons */
   .form-container .btn:hover, .open-button:hover {
     opacity: 1;
+  }
+
+  .comment {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
   }
