@@ -8,7 +8,7 @@ import { WeatherService } from '../core/weather.service';
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
-
+  mainWeatherDesc: string = "";
   todaysForecast:  IForecast ={
     coord: {
       lon: 0,
@@ -61,6 +61,7 @@ export class WeatherComponent implements OnInit {
     this.weatherService.getForecast().subscribe((forecast: IForecast) => {
       this.todaysForecast = forecast;
       console.log(forecast);
+      this.mainWeatherDesc = forecast.weather[0].main;
     });
     
   }
