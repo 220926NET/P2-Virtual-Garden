@@ -9,7 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api")]
 public class UserController : ControllerBase
 {
 
@@ -59,12 +59,12 @@ public class UserController : ControllerBase
 
         _logger.LogInformation("Login Successful");
         return Ok(token);
-        
-    } 
+
+    }
 
     private string CreateToken(User user)
     {
-        List<Claim> claims = new List<Claim> 
+        List<Claim> claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, user.username)
         };
@@ -80,7 +80,7 @@ public class UserController : ControllerBase
             signingCredentials: cred);
 
         string jwt = new JwtSecurityTokenHandler().WriteToken(token);
-        
+
         return jwt;
     }
 }
