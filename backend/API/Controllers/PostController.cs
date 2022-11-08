@@ -6,7 +6,7 @@ using Serilog;
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api")]
 public class PostController : ControllerBase
 {
 
