@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FriendService } from '../core/friend.service';
+import { IFriendRelationship } from '../shared/interface';
 import { WeatherComponent } from '../weather/weather.component';
 
 
@@ -10,9 +12,16 @@ import { WeatherComponent } from '../weather/weather.component';
 
 export class GardenComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fservice: FriendService) { }
 
   ngOnInit(): void {
+    const rel: IFriendRelationship = {
+      username: "duncan",
+      friendname: "Rushay"
+    }
+    this.fservice.addFriend(rel).subscribe((res) => {
+      console.log(res);
+    })
   }
 
 }

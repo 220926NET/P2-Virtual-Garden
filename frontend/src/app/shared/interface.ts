@@ -1,4 +1,4 @@
-export interface IForecast{
+export interface IForecast {
 
     coord: {
         lon: number,
@@ -42,10 +42,15 @@ export interface IForecast{
     id: number,
     name: string,
     cod: number
-    
+
 }
 
-export interface ITile{
+export interface IFriendRelationship {
+    username: string,
+    friendname: string
+}
+
+export interface ITile {
     id: string,
     gardenId: number,
     position: string,
@@ -54,21 +59,21 @@ export interface ITile{
     groundTime: any
 }
 
-export interface IGarden{
+export interface IGarden {
     id: string,
     userId: string,
     tiles: ITile[]
 }
 
-export interface IPlants{
-    id:string,
+export interface IPlants {
+    id: string,
     name: string,
     growthMinutes: number;
     worth: number
 }
 
-export interface IPost{
-    id:string,
+export interface IPost {
+    id: string,
     senderId: string,
     receiverId: string,
     text: string,
