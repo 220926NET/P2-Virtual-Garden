@@ -32,4 +32,13 @@ public class PostController : ControllerBase
         Log.Error($"Post failed to add, information: {post}");
         return BadRequest("Failed to create a post!");
     }
+
+    [HttpGet]
+    [Route("PostsRecievedByUser/{userId}")]
+    public ActionResult<List<Post>> GetPosts(Guid userId)
+    {
+        return Ok(_postSevice.GetAllById(userId));
+    }
+
+       
 }

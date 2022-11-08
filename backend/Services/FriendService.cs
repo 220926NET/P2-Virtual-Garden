@@ -27,6 +27,11 @@ public class FriendServices : IServices<FriendRelationship>
         throw new NotImplementedException();
     }
 
+    public List<FriendRelationship> GetAllById(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
     public FriendRelationship GetById(int id)
     {
         throw new NotImplementedException();

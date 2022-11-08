@@ -90,6 +90,10 @@ public class UserDBAccess : IDBAccess<User>
     {
         throw new NotImplementedException();
     }
+    public List<User> GetAllById(Guid id)
+    {
+        throw new NotImplementedException();
+    }
 
     public User Update(User t)
     {

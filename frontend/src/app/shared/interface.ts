@@ -50,8 +50,14 @@ export interface ITile{
     gardenId: number,
     position: string,
     plantId: string,
-    plantTime: Date, //this may need to be a number
-    groundTime: Date
+    plantTime: any, //this may need to be a number
+    groundTime: any
+}
+
+export interface IGarden{
+    id: string,
+    userId: string,
+    tiles: ITile[]
 }
 
 export interface IPlants{
@@ -66,6 +72,6 @@ export interface IPost{
     senderId: string,
     receiverId: string,
     text: string,
-    time: Date
+    time: any
 }
 
