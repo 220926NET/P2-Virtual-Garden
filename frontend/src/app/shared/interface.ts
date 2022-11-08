@@ -69,9 +69,10 @@ export interface IPlants{
 
 export interface IPost{
     id:string,
-    senderId: string,
-    receiverId: string,
+    senderId?: string,
+    receiverId?: string,
     text: string,
-    time: any
+    time: any,
+    sender_name: string
 }
 
