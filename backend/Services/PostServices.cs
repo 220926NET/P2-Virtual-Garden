@@ -26,6 +26,10 @@ public class PostServices : IServices<Post>
     {
         throw new NotImplementedException();
     }
+    public List<Post> GetAllById(Guid id)
+    {
+        return _postDatabase.GetAllById(id);
+    }
 
     public Post GetById(int id)
     {

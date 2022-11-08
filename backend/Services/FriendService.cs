@@ -27,6 +27,11 @@ public class FriendServices : IServices<FriendRelationship>
         return _friendDatabase.GetAll();
     }
 
+    public List<FriendRelationship> GetAllById(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
     public FriendRelationship GetById(int id)
     {
         throw new NotImplementedException();

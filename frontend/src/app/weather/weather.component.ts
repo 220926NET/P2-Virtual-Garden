@@ -67,3 +67,20 @@ export class WeatherComponent implements OnInit {
   }
 
 }
+
+//All possible codes for main
+//Thunderstorm
+//Drizzle
+//Rain
+//Snow
+//Mist
+//Smoke
+//Haze
+//Dust
+//Fog
+//Sand
+//Ash
+//Squall
+//Tornado
+//Clear
+//Clouds

@@ -193,4 +193,9 @@ public class FriendDBAccess : IDBAccess<FriendRelationship>
     {
         throw new NotImplementedException();
     }
+
+    public List<FriendRelationship> GetAllById(Guid id)
+    {
+        throw new NotImplementedException();
+    }
 }

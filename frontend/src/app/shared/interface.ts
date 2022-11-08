@@ -45,3 +45,33 @@ export interface IForecast{
     
 }
 
+export interface ITile{
+    id: string,
+    gardenId: number,
+    position: string,
+    plantId: string,
+    plantTime: any, //this may need to be a number
+    groundTime: any
+}
+
+export interface IGarden{
+    id: string,
+    userId: string,
+    tiles: ITile[]
+}
+
+export interface IPlants{
+    id:string,
+    name: string,
+    growthMinutes: number;
+    worth: number
+}
+
+export interface IPost{
+    id:string,
+    senderId: string,
+    receiverId: string,
+    text: string,
+    time: any
+}
+

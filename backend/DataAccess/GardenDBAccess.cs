@@ -132,6 +132,11 @@ public class GardenDBAccess : IDBAccess<Garden>
         throw new NotImplementedException();
     }
 
+    public List<Garden> GetAllById(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
     public Garden GetById(Guid id)
     {
         Garden temp = new();

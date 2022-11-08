@@ -8,6 +8,9 @@ public class Post
     public string text { get; set; } = "";
     public DateTime time { get; set; } = DateTime.Now;
 
+    //adding this in for front end
+    public string sender_name {get; set;} = "";
+
     public override string ToString()
     {
         return $"id :{id}, sender id: {sender_id}, receiver id: {reciver_id}, text: {text}, time: {time.ToUniversalTime()}";
