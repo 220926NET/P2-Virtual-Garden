@@ -20,7 +20,7 @@ public class PostController : ControllerBase
     }
 
     [HttpPost]
-    [Route("create-post")]
+    [Route("post")]
     public ActionResult<Post> Add(Post post)
     {
         Post temp = _postSevice.Add(post);
@@ -34,7 +34,7 @@ public class PostController : ControllerBase
     }
 
     [HttpGet]
-    [Route("PostsRecievedByUser/{userId}")]
+    [Route("post")]
     public ActionResult<List<Post>> GetPosts(Guid userId)
     {
         return Ok(_postSevice.GetAllById(userId));
