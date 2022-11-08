@@ -46,4 +46,30 @@ public class GardenController : ControllerBase
         Log.Error("Unable to send garden");
         return BadRequest("Unable to delete garden");
     }
+
+    [HttpDelete]
+    [Route("garden")]
+    public ActionResult<Garden> Delete(Garden garden)
+    {
+        if (new GardenValidator().isValid(_gardenService.Delete(garden)))
+        {
+            Log.Information("Garden Deleted");
+            return Ok("Garden deleted");
+        }
+        Log.Error("Unable to delete Garden!!!!");
+        return BadRequest("Unable to delete garden");
+    }
+
+    [HttpPut]
+    [Route("garden")]
+    public ActionResult<Garden> Update(Garden garden)
+    {
+        if (new GardenValidator().isValid(_gardenService.Update(garden)))
+        {
+            Log.Information("Garden Updated!");
+            return Ok("Garden updated");
+        }
+        Log.Error("Unable to update garden");
+        return BadRequest("Unable to update garden");
+    }
 }

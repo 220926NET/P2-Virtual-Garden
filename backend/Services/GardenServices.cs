@@ -19,7 +19,7 @@ public class GardenServices : IServices<Garden>
 
     public Garden Delete(Garden t)
     {
-        throw new NotImplementedException();
+        return _gardenDatabase.Delete(t);
     }
 
     public List<Garden> GetAll()
@@ -35,6 +35,6 @@ public class GardenServices : IServices<Garden>
 
     public Garden Update(Garden t)
     {
-        throw new NotImplementedException();
+        return _gardenDatabase.Update(t);
     }
 }
