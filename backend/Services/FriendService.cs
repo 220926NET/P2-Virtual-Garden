@@ -19,12 +19,12 @@ public class FriendServices : IServices<FriendRelationship>
 
     public FriendRelationship Delete(FriendRelationship t)
     {
-        throw new NotImplementedException();
+        return _friendDatabase.Delete(t);
     }
 
     public List<FriendRelationship> GetAll()
     {
-        throw new NotImplementedException();
+        return _friendDatabase.GetAll();
     }
 
     public List<FriendRelationship> GetAllById(Guid id)
@@ -33,6 +33,11 @@ public class FriendServices : IServices<FriendRelationship>
     }
 
     public FriendRelationship GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public FriendRelationship GetById(Guid id)
     {
         throw new NotImplementedException();
     }

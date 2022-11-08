@@ -151,4 +151,7 @@ public class ModelsTests
         Assert.NotNull(p);
         Assert.True(validator.isValid(p));
     }
+
+    //Test for GetAllPostsById
+    // [Fact]
 }
