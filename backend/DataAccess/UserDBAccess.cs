@@ -5,7 +5,7 @@ using Serilog;
 namespace DataAccess;
 public class UserDBAccess : IDBAccess<User>
 {
-    private SqlConnectionFactory _factory;
+    private readonly SqlConnectionFactory _factory;
 
     public UserDBAccess(SqlConnectionFactory factory)
     {

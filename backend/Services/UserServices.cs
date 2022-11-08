@@ -5,21 +5,21 @@ using System.Security.Cryptography;
 namespace Services;
 public class UserServices : IUserServices
 {
-    IDBAccess<User> _userDatabase;
+    private readonly IDBAccess<User> _userDatabase;
 
     public UserServices(IDBAccessFactory factory)
     {
         _userDatabase = factory.GetUserDB();
     }
 
-    public User Add(UserDto registerUser)
+    public User Add(UserDto user)
     {
         bool usernameExists = false;
         List<User> users = GetAll();
 
-        foreach (User user in users)
+        foreach (User previousUser in users)
         {
-            if (registerUser.username == user.username)
+            if (user.username == previousUser.username)
             {
                 usernameExists = true;
                 break;
@@ -30,9 +30,9 @@ public class UserServices : IUserServices
 
         if (!usernameExists)
         {
-            CreatePasswordHash(registerUser.password, out byte[] newPasswordHash, out byte[] newPasswordSalt);
+            CreatePasswordHash(user.password, out byte[] newPasswordHash, out byte[] newPasswordSalt);
 
-            newUser.username = registerUser.username;
+            newUser.username = user.username;
             newUser.passwordHash = newPasswordHash;
             newUser.passwordSalt = newPasswordSalt;
             
@@ -51,12 +51,12 @@ public class UserServices : IUserServices
         return _userDatabase.GetAll();
     }
 
-    public User Update(UserDto t)
+    public User Update(UserDto user)
     {
         throw new NotImplementedException();
     }
 
-    public User Delete(UserDto t)
+    public User Delete(UserDto user)
     {
         throw new NotImplementedException();
     }
@@ -73,7 +73,7 @@ public class UserServices : IUserServices
         return new User();
     }
 
-    private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+    private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
     {
         using (HMACSHA512 hmac = new HMACSHA512())
         {
@@ -82,7 +82,7 @@ public class UserServices : IUserServices
         }
     }
 
-    private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+    private static bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
     {
         using (HMACSHA512 hmac = new HMACSHA512(passwordSalt))
         {
