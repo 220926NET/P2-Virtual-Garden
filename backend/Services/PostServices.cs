@@ -32,6 +32,11 @@ public class PostServices : IServices<Post>
         throw new NotImplementedException();
     }
 
+    public Post GetById(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
     public Post Update(Post t)
     {
         throw new NotImplementedException();
