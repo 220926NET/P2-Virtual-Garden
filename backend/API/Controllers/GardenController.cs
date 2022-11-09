@@ -6,7 +6,7 @@ using Serilog;
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api")]
 public class GardenController : ControllerBase
 {
 
@@ -20,7 +20,7 @@ public class GardenController : ControllerBase
     }
 
     [HttpPost]
-    [Route("create-garden")]
+    [Route("garden")]
     public ActionResult<Post> Add(Garden garden)
     {
         Garden temp = _gardenService.Add(garden);
@@ -31,5 +31,46 @@ public class GardenController : ControllerBase
         }
         Log.Error($"Failed to create garden for {garden.user_id}");
         return BadRequest("Could not create garden");
+    }
+
+    [HttpGet]
+    [Route("garden/{userId}")]
+    public ActionResult<Garden> Get(Guid userId)
+    {
+        Garden garden = _gardenService.GetById(userId);
+        if (new GardenValidator().isValid(garden))
+        {
+            Log.Information("Sent garden");
+            return Ok(garden);
+        }
+        Log.Error("Unable to send garden");
+        return BadRequest("Unable to delete garden");
+    }
+
+    [HttpDelete]
+    [Route("garden")]
+    public ActionResult<Garden> Delete(Garden garden)
+    {
+        if (new GardenValidator().isValid(_gardenService.Delete(garden)))
+        {
+            Log.Information("Garden Deleted");
+            return Ok(garden);
+        }
+        Log.Error("Unable to delete Garden!!!!");
+        return BadRequest("Unable to delete garden");
+    }
+
+    [HttpPut]
+    [Route("garden")]
+    public ActionResult<Garden> Update(Garden garden)
+    {
+        Garden temp = _gardenService.Update(garden);
+        if (new GardenValidator().isValid(temp))
+        {
+            Log.Information("Garden Updated!");
+            return Ok(temp);
+        }
+        Log.Error("Unable to update garden");
+        return BadRequest("Unable to update garden");
     }
 }

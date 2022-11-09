@@ -6,7 +6,7 @@ using Serilog;
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api")]
 public class PostController : ControllerBase
 {
 
@@ -20,7 +20,7 @@ public class PostController : ControllerBase
     }
 
     [HttpPost]
-    [Route("create-post")]
+    [Route("post")]
     public ActionResult<Post> Add(Post post)
     {
         Post temp = _postSevice.Add(post);
@@ -32,4 +32,13 @@ public class PostController : ControllerBase
         Log.Error($"Post failed to add, information: {post}");
         return BadRequest("Failed to create a post!");
     }
+
+    [HttpGet]
+    [Route("post/{userId}")]
+    public ActionResult<List<Post>> GetPosts(Guid userId)
+    {
+        return Ok(_postSevice.GetAllById(userId));
+    }
+
+       
 }
