@@ -4,7 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Params } from '@angular/router';
 import { Guid } from 'guid-typescript';
 
-import { PostService } from '../core/post.service';
+import { PostServiceService } from '../core/post.service.service';
+import {PostService} from '../core/post.service';
 import { IPost } from '../shared/interface';
 
 @Component({
@@ -21,7 +22,7 @@ export class PostComponent implements OnInit{
   userId : Guid = Guid.parse('9eb40a35-7a1f-44b5-af6f-68440861cbf4');
 
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private post:PostServiceService) { }
 
   ngOnInit(): void {
     this.postService.getAllPostsUserIsRecipientOf(this.userId).subscribe((posts: IPost[] )=> {
