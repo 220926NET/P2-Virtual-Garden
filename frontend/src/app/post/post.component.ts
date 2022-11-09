@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PostService } from '../core/post.service';
+import { IPost } from '../shared/interface';
 
 @Component({
   selector: 'app-post',
@@ -10,10 +12,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class PostComponent implements OnInit{
 
   comments: string[] = [];
+  bunchaPosts : IPost[] = []
 
-  constructor() { }
+  constructor(private postService: PostService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.postService.getAllPostsUserIsRecipientOf().subscribe((posts: IPost[] )=> {
+      this.bunchaPosts = posts;
+      console.log(this.bunchaPosts);
+    });
+    
+  }
 
 
   openForm() {
