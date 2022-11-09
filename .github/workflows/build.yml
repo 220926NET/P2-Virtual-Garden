@@ -68,8 +68,13 @@ jobs:
     - name: Build
       run: dotnet build --no-restore ${{env.WORKING_DIRECTORY}}
     # running dotnet test
-    - name: Test
+    - name: Test backend
       run: dotnet test --no-build --verbosity normal ${{env.WORKING_DIRECTORY}} --collect:"XPlat Code Coverage" --logger trx -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+
+    - name: Test frontend
+      run: cd frontend
+      run: npm install
+      run: ng test --watch=false --code-coverage
 
     - name: Build and analyze
       env:

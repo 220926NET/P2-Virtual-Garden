@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FriendService } from './friend.service';
 import { IFriendRelationship } from '../shared/interface';
 import { environment } from 'src/environments/environment';
@@ -43,7 +43,7 @@ describe('FriendService', () => {
       expect(res).toEqual([mockedFriendship]);
     }))
 
-    const req = mockController.expectOne(environment.baseApi + 'friend');
+    const req = mockController.expectOne(environment.baseApi + 'friend/' + mockedFriendship.username);
     expect(req.request.method).toBe('GET');
     req.flush([mockedFriendship]);
   })
