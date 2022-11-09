@@ -80,6 +80,6 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       shell: powershell
       run: |
-        .\.sonar\scanner\dotnet-sonarscanner begin /k:"220926NET_P2-Virtual-Garden" /o:"220926net" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
-        dotnet build --no-restore ${{env.WORKING_DIRECTORY}}
+        .\.sonar\scanner\dotnet-sonarscanner begin /k:"220926NET_P2-Virtual-Garden" /o:"220926net" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx" /d:sonar.sourceEncoding=UTF-8 /d:sonar.sources=frontend/src /d:sonar.exclusions=**/node_modules/** /d:sonar.tests=frontend/src /d:sonar.test.inclusions=**/*.spec.ts /d:sonar.typescript.lcov.reportPaths=frontend/coverage/frontend/lcov.info
+                dotnet build --no-restore ${{env.WORKING_DIRECTORY}}
         .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
