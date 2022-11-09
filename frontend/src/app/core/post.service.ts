@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Params } from '@angular/router';
 import { Observable, throwError} from 'rxjs';
 
 import { map, catchError } from 'rxjs/operators';
@@ -11,13 +12,15 @@ import { IPost } from '../shared/interface';
 
 export class PostService {
 
-  baseUrl: string = 'https://api/';
+  //baseUrl: string = 'https://localhost:4200/api/';
+  swaggerBaseUrl : string = "https://localhost:7077/api/"
 
   constructor(private http: HttpClient) { }
 
-  getAllPostsUserIsRecipientOf(): Observable<IPost[]>{
+  getAllPostsUserIsRecipientOf(recepientId: Params): Observable<IPost[]>{
    
-    return this.http.get<IPost[]>(this.baseUrl + 'post.json')
+
+    return this.http.get<IPost[]>(`${this.swaggerBaseUrl}post`, recepientId)
     .pipe(
       catchError(this.handleError)
     );
