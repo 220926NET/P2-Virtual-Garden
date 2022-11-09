@@ -34,10 +34,10 @@ public class GardenController : ControllerBase
     }
 
     [HttpGet]
-    [Route("garden")]
-    public ActionResult<Garden> Get(Guid id)
+    [Route("garden/{userId}")]
+    public ActionResult<Garden> Get(Guid userId)
     {
-        Garden garden = _gardenService.GetById(id);
+        Garden garden = _gardenService.GetById(userId);
         if (new GardenValidator().isValid(garden))
         {
             Log.Information("Sent garden");
@@ -54,7 +54,7 @@ public class GardenController : ControllerBase
         if (new GardenValidator().isValid(_gardenService.Delete(garden)))
         {
             Log.Information("Garden Deleted");
-            return Ok("Garden deleted");
+            return Ok(garden);
         }
         Log.Error("Unable to delete Garden!!!!");
         return BadRequest("Unable to delete garden");
@@ -64,10 +64,11 @@ public class GardenController : ControllerBase
     [Route("garden")]
     public ActionResult<Garden> Update(Garden garden)
     {
-        if (new GardenValidator().isValid(_gardenService.Update(garden)))
+        Garden temp = _gardenService.Update(garden);
+        if (new GardenValidator().isValid(temp))
         {
             Log.Information("Garden Updated!");
-            return Ok("Garden updated");
+            return Ok(temp);
         }
         Log.Error("Unable to update garden");
         return BadRequest("Unable to update garden");

@@ -1,3 +1,5 @@
+import { Guid } from "guid-typescript";
+
 export interface IForecast {
 
     coord: {
@@ -51,31 +53,31 @@ export interface IFriendRelationship {
 }
 
 export interface ITile {
-    id: string,
-    gardenId: number,
+    id: Guid,
+    garden_id: Guid,
     position: string,
-    plantId: string,
-    plantTime: any, //this may need to be a number
-    groundTime: any
+    plant_id: Guid,
+    plant_time: any, //this may need to be a number
+    ground_time: any
 }
 
 export interface IGarden {
     id: string,
-    userId: string,
+    user_id: string,
     tiles: ITile[]
 }
 
 export interface IPlants {
-    id: string,
+    id: Guid,
     name: string,
-    growthMinutes: number;
+    growth_minutes: number;
     worth: number
 }
 
 export interface IPost {
-    id: string,
-    senderId: string,
-    receiverId: string,
+    id: Guid,
+    sender_id: Guid,
+    receiver_id: Guid,
     text: string,
     time: any
 }
