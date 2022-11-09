@@ -19,15 +19,6 @@ public class FriendController : ControllerBase
         _friendService = friendService;
     }
 
-    // TODO: CRUD
-    /*
-    [HttpCRUD]
-    [Route("friend")]
-    public ActionResult<FriendRealationship> CRUD() {
-
-    }
-    */
-
     [HttpPost]
     [Route("friend")]
     public ActionResult<FriendRelationship> Add(FriendRelationship rel)
@@ -45,7 +36,7 @@ public class FriendController : ControllerBase
 
 
     [HttpGet]
-    [Route("friend")]
+    [Route("friend/{username}")]
     public ActionResult<List<FriendRelationship>> Get(string username)
     {
         List<FriendRelationship> temp = _friendService.GetAll().FindAll(delegate (FriendRelationship f)
@@ -63,7 +54,7 @@ public class FriendController : ControllerBase
         if (new FriendRelationshipValidator().isValid(_friendService.Delete(rel)))
         {
             Log.Information($"Delete the friend relationship between {rel.username} and {rel.friendname}");
-            return Ok("Deleted!");
+            return Ok(rel);
         }
         Log.Error("Unable to delete friend relationship");
         return BadRequest("Unable to delete friend relationship");

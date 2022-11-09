@@ -15,8 +15,8 @@ export class FriendService {
     return this.http.post<IFriendRelationship>(this.api, rel);
   }
 
-  getFriend(username: string): Observable<IFriendRelationship[]> {
-    return this.http.request<IFriendRelationship[]>('GET', this.api, { body: username });
+  getFriend(usr: string): Observable<IFriendRelationship[]> {
+    return this.http.get<IFriendRelationship[]>(this.api + '/' + usr);
   }
 
   deleteFriend(rel: IFriendRelationship): Observable<IFriendRelationship> {
