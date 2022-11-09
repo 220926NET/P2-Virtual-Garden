@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { Observable, throwError} from 'rxjs';
+import { Guid } from 'guid-typescript';
 
 import { map, catchError } from 'rxjs/operators';
 import { IPost } from '../shared/interface';
@@ -12,15 +13,12 @@ import { IPost } from '../shared/interface';
 
 export class PostService {
 
-  //baseUrl: string = 'https://localhost:4200/api/';
   swaggerBaseUrl : string = "https://localhost:7077/api/"
 
   constructor(private http: HttpClient) { }
 
-  getAllPostsUserIsRecipientOf(recepientId: Params): Observable<IPost[]>{
-   
-
-    return this.http.get<IPost[]>(`${this.swaggerBaseUrl}post`, recepientId)
+  getAllPostsUserIsRecipientOf(userId:Guid): Observable<IPost[]>{
+    return this.http.get<IPost[]>(`${this.swaggerBaseUrl}post/${userId}`)
     .pipe(
       catchError(this.handleError)
     );
