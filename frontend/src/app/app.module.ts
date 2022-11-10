@@ -12,6 +12,7 @@ import { WeatherComponent } from './weather/weather.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
+import { LandingPageModule } from './landing-page/landing-page.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar'
@@ -37,6 +38,8 @@ import { AuthInterceptorService } from './core/authInterceptor.service';
     HttpClientModule,
     SharedModule,
     CoreModule,
+    ReactiveFormsModule,
+    LandingPageModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatFormFieldModule,
