@@ -2,7 +2,7 @@
   <p>Some Text</p>
   <span class="fill-remaining-space"></span>
 
-  <form [formGroup]="loginForm">
+  <form [formGroup]="loginForm" *ngIf="!isLoggedIn">
     <mat-form-field appearance="outline" class="username">
       <mat-label>Username</mat-label>
       <input matInput name="username" formControlName="username" placeholder="Username">

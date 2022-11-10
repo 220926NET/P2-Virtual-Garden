@@ -83,3 +83,8 @@ export interface IPost {
     sender_name: string
 }
 
+export interface IAuthResult {
+    token: string,
+    expires: Date
+}
+
