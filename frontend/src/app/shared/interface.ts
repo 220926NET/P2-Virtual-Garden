@@ -52,11 +52,20 @@ export interface IFriendRelationship {
     friendname: string
 }
 
+export interface IPlant {
+    id: string,
+    name: string,
+    growth_minuets: number,
+    worth: number,
+    image_path: string,
+    state: number,
+}
+
 export interface ITile {
     id: string,
     garden_id: string,
     position: string,
-    plant_id: string,
+    plant_information: IPlant,
     plant_time: any, //this may need to be a number
     ground_time: any
 }
