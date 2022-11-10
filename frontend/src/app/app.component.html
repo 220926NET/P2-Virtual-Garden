@@ -10,7 +10,10 @@
 <header>
   <app-navbar></app-navbar>
 </header>
-<div class="userArea">
+<div *ngIf="user == noUser" class="userArea">
+  <app-landing-page></app-landing-page>
+</div>
+<div *ngIf="user != noUser" class="userArea">
   <section class="userBanner">
     <h1>Banner</h1>
   </section>
@@ -19,7 +22,6 @@
     <app-garden></app-garden>
     <app-post></app-post>
   </section>
-
 </div>
 <footer>
   <p>Site made possible by:JRCD</p>
