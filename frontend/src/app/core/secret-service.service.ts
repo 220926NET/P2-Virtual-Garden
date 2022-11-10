@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SecretServiceService {
-  apiKey: string = "Get your own lol";
+  apiKey: string = "7bc821d41d5911bbb9a5c243b762a3a8";
   constructor() {
   }
 
