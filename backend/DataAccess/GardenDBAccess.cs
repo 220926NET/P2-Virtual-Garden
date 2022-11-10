@@ -41,20 +41,40 @@ public class GardenDBAccess : IDBAccess<Garden>
                 cmd.ExecuteNonQuery();
 
 
-                for (int i = 0; i < 16; i++)
+                if (garden.tiles.Count != 16)
                 {
-                    cmd = new SqlCommand();
-                    cmd.Connection = connection;
-                    cmd.Transaction = transaction;
-                    Tile tile = new Tile { garden_id = temp.id, position = i };
-                    cmd.CommandText = $"insert into Tile (id,gardenId,position,plantId,plantTime,groundTime) VALUES (@id,@g,@p,@pid,@pt,@gt);";
-                    cmd.Parameters.AddWithValue($"@id", tile.id);
-                    cmd.Parameters.AddWithValue("@g", temp.id);
-                    cmd.Parameters.AddWithValue("@p", i);
-                    cmd.Parameters.AddWithValue("@pid", dirt_id);
-                    cmd.Parameters.AddWithValue("@pt", tile.plant_time);
-                    cmd.Parameters.AddWithValue("@gt", tile.ground_time);
-                    cmd.ExecuteNonQuery();
+                    for (int i = 0; i < 16; i++)
+                    {
+                        cmd = new SqlCommand();
+                        cmd.Connection = connection;
+                        cmd.Transaction = transaction;
+                        Tile tile = new Tile { garden_id = temp.id, position = i };
+                        cmd.CommandText = $"insert into Tile (id,gardenId,position,plantId,plantTime,groundTime) VALUES (@id,@g,@p,@pid,@pt,@gt);";
+                        cmd.Parameters.AddWithValue($"@id", tile.id);
+                        cmd.Parameters.AddWithValue("@g", temp.id);
+                        cmd.Parameters.AddWithValue("@p", i);
+                        cmd.Parameters.AddWithValue("@pid", dirt_id);
+                        cmd.Parameters.AddWithValue("@pt", tile.plant_time);
+                        cmd.Parameters.AddWithValue("@gt", tile.ground_time);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                else
+                {
+                    foreach (Tile t in garden.tiles)
+                    {
+                        cmd = new SqlCommand();
+                        cmd.Connection = connection;
+                        cmd.Transaction = transaction;
+                        cmd.CommandText = $"insert into Tile (id,gardenId,position,plantId,plantTime,groundTime) VALUES (@id,@g,@p,@pid,@pt,@gt);";
+                        cmd.Parameters.AddWithValue($"@id", t.id);
+                        cmd.Parameters.AddWithValue("@g", temp.id);
+                        cmd.Parameters.AddWithValue("@p", t.position);
+                        cmd.Parameters.AddWithValue("@pid", t.plant_id);
+                        cmd.Parameters.AddWithValue("@pt", t.plant_time);
+                        cmd.Parameters.AddWithValue("@gt", t.ground_time);
+                        cmd.ExecuteNonQuery();
+                    }
                 }
 
             }
@@ -81,10 +101,38 @@ public class GardenDBAccess : IDBAccess<Garden>
 
     public Garden Delete(Garden t)
     {
-        throw new NotImplementedException();
+        try
+        {
+            foreach (Tile tile in t.tiles)
+            {
+                SqlConnection connection = _factory.GetConnection();
+                connection.Open();
+                SqlCommand cmd = new SqlCommand("delete from Tile where id = @id", connection);
+                cmd.Parameters.AddWithValue("@id", tile.id);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+            }
+            SqlConnection c = _factory.GetConnection();
+            c.Open();
+            SqlCommand cd = new SqlCommand("delete from Garden where id = @id", c);
+            cd.Parameters.AddWithValue("@id", t.id);
+            cd.ExecuteNonQuery();
+            c.Close();
+            return t;
+        }
+        catch (SqlException e)
+        {
+            Log.Error(e, "Unable to delete garden");
+            return new();
+        }
     }
 
     public List<Garden> GetAll()
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Garden> GetAllById(Guid id)
     {
         throw new NotImplementedException();
     }
@@ -150,6 +198,10 @@ public class GardenDBAccess : IDBAccess<Garden>
 
     public Garden Update(Garden t)
     {
-        throw new NotImplementedException();
+        if (new GardenValidator().isValid(Delete(t)))
+        {
+            return Add(t);
+        }
+        return new();
     }
 }

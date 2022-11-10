@@ -1,5 +1,11 @@
+import { ParseError } from '@angular/compiler';
 import { Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Params } from '@angular/router';
+import { Guid } from 'guid-typescript';
+
+import {PostService} from '../core/post.service';
+import { IPost } from '../shared/interface';
 
 @Component({
   selector: 'app-post',
@@ -9,11 +15,24 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export class PostComponent implements OnInit{
 
-  comments: string[] = [];
+  comments: IPost[] = [];
+  bunchaPosts : IPost[] = []
+  //do not gaa or gcm before removing this
+  userId : Guid = Guid.parse('9eb40a35-7a1f-44b5-af6f-68440861cbf4');
 
-  constructor() { }
+  comment = new FormControl();
 
-  ngOnInit(): void {}
+
+  constructor(private postService: PostService) { }
+
+  ngOnInit(): void {
+    this.postService.getAllPostsUserIsRecipientOf(this.userId).subscribe((posts: IPost[] )=> {
+      this.bunchaPosts = posts;
+      console.log(this.bunchaPosts);
+      this.comments = this.bunchaPosts;
+    });
+    
+  }
 
 
   openForm() {
@@ -27,6 +46,19 @@ export class PostComponent implements OnInit{
   }
 
   submitMessage(){
+    let now = new Date();
+    let test_post:IPost={
+      id: Guid.EMPTY,
+      sender_id:"9eb40a35-7a1f-44b5-af6f-68440861cbf4",
+      reciver_id:"9eb40a35-7a1f-44b5-af6f-68440861cbf4",
+      text:this.comment.value,
+      time: now,
+      sender_name: "duncan"
+    }
+    this.postService.sendPost(test_post).subscribe((res) =>{
+      console.log(res)
+    });
+
 
   }
 

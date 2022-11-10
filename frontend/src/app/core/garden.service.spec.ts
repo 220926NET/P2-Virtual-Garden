@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { GardenService } from './garden.service';
 
 
 import { AuthService } from './auth.service';
@@ -11,8 +10,7 @@ describe('AuthService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(AuthService);
 
-  });
-});
+import { GardenService } from './garden.service';
 
 describe('GardenService', () => {
   let service: GardenService;
@@ -20,7 +18,7 @@ describe('GardenService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(GardenService);
-
+>>>>>>>> main:frontend/src/app/core/garden.service.spec.ts
   });
 
   it('should be created', () => {

@@ -53,6 +53,44 @@ public class PostDBAccess : IDBAccess<Post>
         throw new NotImplementedException();
     }
 
+    public List<Post> GetAllById(Guid id)
+    {
+        List<Post> posts = new List<Post>();
+        try
+        {
+            using SqlConnection connection = _factory.GetConnection();
+            connection.Open();
+
+            SqlCommand cmd = new SqlCommand(@"
+                SELECT senderId, [text], [time], u.username
+                FROM Posts p
+                JOIN Users u ON u.id = p.receiverId
+                WHERE receiverId = @id
+                ORDER BY [time] DESC", connection);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            if(reader.HasRows)
+            {
+                while(reader.Read()){
+                    Post post = new Post();
+                    
+                    post.text = (string)reader["text"];
+                    post.time = (DateTime)reader["time"];
+                    post.sender_name = (string)reader["username"];
+                    
+                    posts.Add(post);
+                }
+            }
+        }
+        catch (SqlException e)
+        {
+            Log.Error(e, "An exception was thrown while adding the post");
+        }
+        return posts;
+        
+    }
+
     public List<Post> GetAll()
     {
         throw new NotImplementedException();

@@ -13,7 +13,19 @@ Log.Logger = new LoggerConfiguration()
                 .WriteTo.File("../logs/backend-.log", rollingInterval: RollingInterval.Day, shared: true)
                 .CreateLogger();
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          // Not safe but clears CORS issue.. we can setup a specific orgin when deploying
+                          policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                      });
+});
 
 // Add services to the container.
 
@@ -55,6 +67,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 Log.Information("The API is starting");
 app.Run();

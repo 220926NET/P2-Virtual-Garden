@@ -3,13 +3,13 @@
         <button class="open-button" (click)="openForm()">Write</button>
 
         <div class="chat-popup" id="myForm">
-            <form action="" class="form-container">
+            <form class="form-container">
                 <h2>Comment</h2>
 
                 <label for="msg"><b>Message</b></label>
-                <textarea placeholder="Type message.." name="msg" id = "text" required></textarea>
+                <textarea placeholder="Type message.." name="msg" id = "text" [formControl] = "comment"></textarea>
 
-                <button type="submit" class="btn" (click) = "submitMessage()">Send</button>
+                <button type="button" class="btn" (click)="submitMessage()" (click)="closeForm()">Send</button>
                 
                 <button type="button" class="btn cancel" (click)="closeForm()">Close</button>
             </form>
@@ -17,8 +17,8 @@
     </div>
     <div class="displayPosts">
         <p>See All Posts here</p>
-        <div class = "comment" *ngFor="let comment of comments">
-            <p>{{comment}}</p>
+        <div class = "comment" *ngFor = "let comment of comments">
+            <p>{{comment.text}}</p>
         </div>
     </div>
 </div>

@@ -5,7 +5,7 @@ using Serilog;
 namespace DataAccess;
 public class UserDBAccess : IDBAccess<User>
 {
-    private SqlConnectionFactory _factory;
+    private readonly SqlConnectionFactory _factory;
 
     public UserDBAccess(SqlConnectionFactory factory)
     {
@@ -87,6 +87,10 @@ public class UserDBAccess : IDBAccess<User>
     }
 
     public User GetById(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+    public List<User> GetAllById(Guid id)
     {
         throw new NotImplementedException();
     }
