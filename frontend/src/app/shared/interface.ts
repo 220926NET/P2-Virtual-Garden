@@ -53,10 +53,10 @@ export interface IFriendRelationship {
 }
 
 export interface ITile {
-    id: Guid,
-    garden_id: Guid,
+    id: string,
+    garden_id: string,
     position: string,
-    plant_id: Guid,
+    plant_id: string,
     plant_time: any, //this may need to be a number
     ground_time: any
 }
@@ -68,16 +68,16 @@ export interface IGarden {
 }
 
 export interface IPlants {
-    id: Guid,
+    id: string,
     name: string,
     growth_minutes: number;
     worth: number
 }
 
 export interface IPost {
-    id: Guid,
-    sender_id: Guid,
-    receiver_id: Guid,
+    id: string,
+    sender_id: string,
+    reciver_id: string,
     text: string,
     time: any,
     sender_name: string

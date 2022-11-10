@@ -34,7 +34,7 @@ public class PostController : ControllerBase
     }
 
     [HttpGet]
-    [Route("post/{userId}")]
+    [Route("get/{userId}")]
     public ActionResult<List<Post>> GetPosts(Guid userId)
     {
         return Ok(_postSevice.GetAllById(userId));
