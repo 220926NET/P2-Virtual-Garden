@@ -59,7 +59,13 @@ public class ModelsTests
         Tile tile = new();
         tile.garden_id = Guid.NewGuid();
         tile.position = 0;
-        tile.plant_id = Guid.NewGuid();
+        tile.plant_information = new Plant();
+        tile.plant_information.growth_minuets = 0;
+        tile.plant_information.id = Guid.NewGuid();
+        tile.plant_information.image_path = " lol ";
+        tile.plant_information.name = "test ";
+        tile.plant_information.state = 0;
+        tile.plant_information.worth = 0;
         TileValidator validator = new TileValidator();
         Assert.NotNull(tile);
         Assert.True(validator.isValid(tile));
@@ -78,6 +84,8 @@ public class ModelsTests
     public void PlantValid()
     {
         Plant p = new();
+        p.image_path = "lol";
+        p.state = 0;
         p.name = "place holder name";
         p.growth_minuets = 0;
         p.worth = 0;
@@ -145,7 +153,13 @@ public class ModelsTests
         Tile tile = new();
         tile.garden_id = Guid.NewGuid();
         tile.position = 0;
-        tile.plant_id = Guid.NewGuid();
+        tile.plant_information = new Plant();
+        tile.plant_information.growth_minuets = 0;
+        tile.plant_information.id = Guid.NewGuid();
+        tile.plant_information.image_path = " lol ";
+        tile.plant_information.name = "test ";
+        tile.plant_information.state = 0;
+        tile.plant_information.worth = 0;
         p.tiles.Add(tile);
         GardenValidator validator = new GardenValidator();
         Assert.NotNull(p);

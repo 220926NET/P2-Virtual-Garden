@@ -44,7 +44,7 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [Route("login")]
-    public ActionResult<User> Login(UserDto loginUser)
+    public ActionResult<string> Login(UserDto loginUser)
     {
         _logger.LogInformation("Login check");
         User resultUser = _userService.Login(loginUser);

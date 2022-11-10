@@ -4,6 +4,6 @@ public class TileValidator : IValidate<Tile>
 {
     public bool isValid(Tile toCheck)
     {
-        return toCheck.garden_id != Guid.Empty && toCheck.id != Guid.Empty && toCheck.plant_id != Guid.Empty && toCheck.position != -1;
+        return toCheck.garden_id != Guid.Empty && toCheck.id != Guid.Empty && new PlantValidator().isValid(toCheck.plant_information) && toCheck.position != -1;
     }
 }

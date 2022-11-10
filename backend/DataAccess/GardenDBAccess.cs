@@ -13,90 +13,139 @@ public class GardenDBAccess : IDBAccess<Garden>
         _factory = factory;
     }
 
-    public Garden Add(Garden garden)
+    public Garden Add(Garden t)
     {
-        Garden temp = new();
         using SqlConnection connection = _factory.GetConnection();
         connection.Open();
-        SqlTransaction transaction = connection.BeginTransaction();
-
-        SqlCommand cmd = new SqlCommand();
-        cmd.Connection = connection;
-        cmd.Transaction = transaction;
+        Plant dirt = new();
         try
         {
-            SqlConnection cn = _factory.GetConnection();
-            cn.Open();
-            SqlCommand c = new SqlCommand("select id from Plants where name = 'dirt';", cn);
-            SqlDataReader reader = c.ExecuteReader();
+            // Get information about dirt tile
+
+
+            // Make sure we dont create a garden twice!
+            SqlCommand checkCommand = new SqlCommand("select * from Garden where User_id = @uid", connection);
+            checkCommand.Parameters.AddWithValue("@uid", t.user_id);
+            SqlDataReader checkReader = checkCommand.ExecuteReader();
+            // Dont make a new one if it already exists
+            if (checkReader.HasRows) return new();
+            connection.Close();
+            connection.Open();
+
+            SqlCommand selectCommand = new SqlCommand(@"
+        select p.id as id, p.name as [name], p.growthMinutes as [minutes], p.worth as worth, ps.state as [state], ps.image as [image]
+        from Plants p 
+        left join Plantstate as ps on id = plantId
+        where name = @d;
+        ", connection);
+            selectCommand.Parameters.AddWithValue("@d", "dirt");
+            SqlDataReader reader = selectCommand.ExecuteReader();
+
             if (reader.HasRows)
             {
                 reader.Read();
-                Guid dirt_id = (Guid)reader["id"];
-                cn.Close();
+                dirt.growth_minuets = (int)reader["minutes"];
+                dirt.id = (Guid)reader["id"];
+                dirt.image_path = (string)reader["image"];
+                dirt.name = (string)reader["name"];
+                dirt.state = (int)reader["state"];
+                dirt.worth = (int)reader["worth"];
+            }
+            else
+            {
+                return new();
+            }
+        }
+        catch (SqlException e)
+        {
+            Log.Error(e, "An error occured in the information gathering step of creating a garden");
+            return new();
+        }
 
-                cmd.CommandText = "insert into Garden (id,User_id) values (@gid,@uid);";
-                cmd.Parameters.AddWithValue("@gid", temp.id);
-                cmd.Parameters.AddWithValue("@uid", garden.user_id);
-                cmd.ExecuteNonQuery();
+        connection.Close();
+        connection.Open();
 
+        if (new PlantValidator().isValid(dirt))
+        {
+            SqlTransaction transaction = connection.BeginTransaction();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = connection;
+            cmd.Transaction = transaction;
+            Guid gardenId = Guid.NewGuid();
 
-                if (garden.tiles.Count != 16)
+            try
+            {
+                if (t.tiles.Count != 16)
                 {
+                    // New garden
+                    cmd.CommandText = "insert into Garden (id,User_id) VALUES (@id,@uid);";
+                    cmd.Parameters.AddWithValue("@id", gardenId);
+                    cmd.Parameters.AddWithValue("@uid", t.user_id);
+                    cmd.ExecuteNonQuery();
+
                     for (int i = 0; i < 16; i++)
                     {
                         cmd = new SqlCommand();
                         cmd.Connection = connection;
                         cmd.Transaction = transaction;
-                        Tile tile = new Tile { garden_id = temp.id, position = i };
-                        cmd.CommandText = $"insert into Tile (id,gardenId,position,plantId,plantTime,groundTime) VALUES (@id,@g,@p,@pid,@pt,@gt);";
-                        cmd.Parameters.AddWithValue($"@id", tile.id);
-                        cmd.Parameters.AddWithValue("@g", temp.id);
-                        cmd.Parameters.AddWithValue("@p", i);
-                        cmd.Parameters.AddWithValue("@pid", dirt_id);
-                        cmd.Parameters.AddWithValue("@pt", tile.plant_time);
-                        cmd.Parameters.AddWithValue("@gt", tile.ground_time);
+                        cmd.CommandText = @"
+                        insert into Tile (id,gardenId,[position],plantId,plantTime,groundTime) 
+                            VALUES 
+                        (@tid,@gid,@pos,@pid,@pt,@gt);";
+                        cmd.Parameters.AddWithValue("@tid", Guid.NewGuid());
+                        cmd.Parameters.AddWithValue("@gid", gardenId);
+                        cmd.Parameters.AddWithValue("@pos", i);
+                        cmd.Parameters.AddWithValue("@pid", dirt.id);
+                        cmd.Parameters.AddWithValue("@pt", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@gt", DateTime.Now);
                         cmd.ExecuteNonQuery();
                     }
                 }
                 else
                 {
-                    foreach (Tile t in garden.tiles)
+                    // Updating a garden
+                    cmd.CommandText = "insert into Garden (id,User_id) VALUES (@id,@uid);";
+                    cmd.Parameters.AddWithValue("@id", t.id);
+                    cmd.Parameters.AddWithValue("@uid", t.user_id);
+                    cmd.ExecuteNonQuery();
+
+                    foreach (Tile tile in t.tiles)
                     {
                         cmd = new SqlCommand();
                         cmd.Connection = connection;
                         cmd.Transaction = transaction;
-                        cmd.CommandText = $"insert into Tile (id,gardenId,position,plantId,plantTime,groundTime) VALUES (@id,@g,@p,@pid,@pt,@gt);";
-                        cmd.Parameters.AddWithValue($"@id", t.id);
-                        cmd.Parameters.AddWithValue("@g", temp.id);
-                        cmd.Parameters.AddWithValue("@p", t.position);
-                        cmd.Parameters.AddWithValue("@pid", t.plant_id);
-                        cmd.Parameters.AddWithValue("@pt", t.plant_time);
-                        cmd.Parameters.AddWithValue("@gt", t.ground_time);
+                        cmd.CommandText = @"
+                        insert into Tile (id,gardenId,[position],plantId,plantTime,groundTime) 
+                            VALUES 
+                        (@tid,@gid,@pos,@pid,@pt,@gt);";
+                        cmd.Parameters.AddWithValue("@tid", tile.id);
+                        cmd.Parameters.AddWithValue("@gid", t.id);
+                        cmd.Parameters.AddWithValue("@pos", tile.position);
+                        cmd.Parameters.AddWithValue("@pid", tile.plant_information.id);
+                        cmd.Parameters.AddWithValue("@pt", tile.plant_time);
+                        cmd.Parameters.AddWithValue("@gt", tile.ground_time);
                         cmd.ExecuteNonQuery();
                     }
                 }
-
+                transaction.Commit();
+                return GetById(t.user_id);
             }
-            transaction.Commit();
-            temp.user_id = garden.user_id;
-            temp = GetById(temp.user_id);
-        }
-        catch (SqlException e)
-        {
-            Log.Error(e, "An error occured while creating a new garden resource, attempting db rollback");
-            try
+            catch (SqlException e)
             {
-                transaction.Rollback();
-                Log.Information("Rollback succeeded!");
-            }
-            catch (Exception e2)
-            {
-                Log.Error(e2, "Failed to rollback transaction");
+                try
+                {
+                    Log.Error(e, "An error occured while creating a garden, attempting to rollback");
+                    transaction.Rollback();
+                    Log.Information("Rollback succeded!");
+                }
+                catch (Exception e2)
+                {
+                    Log.Error(e2, "Failed to rollback transaction while creating a garden");
+                }
             }
         }
 
-        return temp;
+        return new();
     }
 
     public Garden Delete(Garden t)
@@ -139,61 +188,61 @@ public class GardenDBAccess : IDBAccess<Garden>
 
     public Garden GetById(Guid id)
     {
-        Garden temp = new();
-
         try
         {
             using SqlConnection connection = _factory.GetConnection();
             connection.Open();
+
             SqlCommand cmd = new SqlCommand(@"
-                select * from garden where User_id = @id;
-            ", connection);
-            cmd.Parameters.AddWithValue("@id", id);
+                SELECT g.id as garden_id , g.User_id, t.id as tile_id, t.position, t.plantId, t.plantTime, t.groundTime,  p.name, p.growthMinutes, p.worth, ps.state, ps.[image]
+                FROM Garden g
+                LEFT JOIN Tile t on g.id = t.gardenId
+                LEFT JOIN Plants p ON t.plantId = p.id
+                LEFT JOIN PlantState ps ON p.id = ps.plantId
+                where User_id = @uid;
+                ", connection);
+            cmd.Parameters.AddWithValue("@uid", id);
+
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
-                reader.Read();
-                temp.user_id = id;
-                temp.id = (Guid)reader["id"];
-
-                connection.Close();
-                connection.Open();
-
-                cmd = new SqlCommand("select * from Tile where gardenId = @g;", connection);
-                cmd.Parameters.AddWithValue("@g", temp.id);
-                SqlDataReader r = cmd.ExecuteReader();
-                if (r.HasRows)
+                Garden newGarden = new();
+                bool firstRow = true;
+                while (reader.Read())
                 {
-                    while (r.Read())
+                    if (firstRow)
                     {
-                        Guid tid = (Guid)r["id"];
-                        Guid garden_id = (Guid)r["gardenId"];
-                        int position = (int)r["position"];
-                        Guid plant_id = (Guid)r["plantId"];
-                        DateTime plant_time = (DateTime)r["plantTime"];
-                        DateTime ground_time = (DateTime)r["groundTime"];
-
-                        Tile tile = new Tile
-                        {
-                            id = tid,
-                            garden_id = garden_id,
-                            position = position,
-                            plant_id = plant_id,
-                            plant_time = plant_time,
-                            ground_time = ground_time
-                        };
-                        temp.tiles.Add(tile);
-                        Log.Information($"{tile.id}");
+                        firstRow = false;
+                        newGarden.id = (Guid)reader["garden_id"];
+                        newGarden.user_id = (Guid)reader["User_id"];
                     }
+                    newGarden.tiles.Add(new Tile
+                    {
+                        id = (Guid)reader["tile_id"],
+                        position = (int)reader["position"],
+                        garden_id = newGarden.id,
+                        plant_time = (DateTime)reader["plantTime"],
+                        ground_time = (DateTime)reader["groundTime"],
+                        plant_information = new Plant
+                        {
+                            id = (Guid)reader["plantId"],
+                            name = (string)reader["name"],
+                            growth_minuets = (int)reader["growthMinutes"],
+                            worth = (int)reader["worth"],
+                            image_path = (string)reader["image"],
+                            state = (int)reader["state"]
+                        }
+                    });
                 }
+                return newGarden;
             }
         }
         catch (SqlException e)
         {
-            Log.Error(e, "An exception was thrown while getting garden");
+            Log.Error(e, "An exception was thrown while getting a garden from the database");
         }
 
-        return temp;
+        return new();
     }
 
     public Garden Update(Garden t)
