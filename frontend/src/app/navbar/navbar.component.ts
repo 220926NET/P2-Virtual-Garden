@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
 
     if (val.username && val.password) {
       this.authService.login(val.username, val.password)
-        .subscribe(() => console.log('Login Success?'));
+        .subscribe((key: string) => console.log(key));
     }
   }
 

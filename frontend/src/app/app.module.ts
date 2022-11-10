@@ -9,7 +9,7 @@ import { GardenComponent } from './garden/garden.component';
 import { PostComponent } from './post/post.component';
 import { GardenGridComponent } from './garden-grid/garden-grid.component';
 import { WeatherComponent } from './weather/weather.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,6 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
+import { AuthInterceptorService } from './core/authInterceptor.service';
 
 
 @NgModule({
@@ -42,7 +43,7 @@ import { MatButtonModule } from '@angular/material/button'
     MatInputModule,
     MatButtonModule
   ],
-  providers: [],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
