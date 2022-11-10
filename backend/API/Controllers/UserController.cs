@@ -44,7 +44,7 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [Route("login")]
-    public ActionResult<string> Login(UserDto loginUser)
+    public ActionResult<UserToken> Login(UserDto loginUser)
     {
         _logger.LogInformation("Login check");
         User resultUser = _userService.Login(loginUser);
@@ -55,18 +55,19 @@ public class UserController : ControllerBase
             return BadRequest("Login Failed");
         }
 
-        string token = CreateToken(resultUser);
+        UserToken token = CreateToken(resultUser);
 
         _logger.LogInformation("Login Successful");
         return Ok(token);
 
     }
 
-    private string CreateToken(User user)
+    private UserToken CreateToken(User user)
     {
         List<Claim> claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, user.username)
+            new Claim("username", user.username),
+            new Claim("userId", user.id.ToString())
         };
 
         SymmetricSecurityKey key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
@@ -81,6 +82,6 @@ public class UserController : ControllerBase
 
         string jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
-        return jwt;
+        return new UserToken { token = jwt, expires = DateTime.Now.AddDays(1)};
     }
 }

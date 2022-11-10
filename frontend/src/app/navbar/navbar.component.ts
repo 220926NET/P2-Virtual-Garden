@@ -19,7 +19,10 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  public isLoggedIn: boolean = this.authService.isLoggedIn();
+
   ngOnInit(): void {
+    console.log(this.authService.isLoggedIn())
   }
 
   login() {
@@ -27,8 +30,10 @@ export class NavbarComponent implements OnInit {
 
     if (val.username && val.password) {
       this.authService.login(val.username, val.password)
-        .subscribe((key: string) => console.log(key));
+        .subscribe(() => this.isLoggedIn = this.authService.isLoggedIn());
     }
+
+    console.log(this.authService.isLoggedIn())
   }
 
 }
