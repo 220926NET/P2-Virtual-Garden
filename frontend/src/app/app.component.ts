@@ -14,7 +14,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 
 export class AppComponent {
   title = 'frontend';
-  user : string = "loggedIn";
+  user : string = "hello";
   noUser : string = "";
 
 }
