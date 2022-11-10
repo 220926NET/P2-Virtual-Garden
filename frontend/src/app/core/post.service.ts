@@ -18,10 +18,14 @@ export class PostService {
   constructor(private http: HttpClient) { }
 
   getAllPostsUserIsRecipientOf(userId:Guid): Observable<IPost[]>{
-    return this.http.get<IPost[]>(`${this.swaggerBaseUrl}post/${userId}`)
+    return this.http.get<IPost[]>(`${this.swaggerBaseUrl}get/${userId}`)
     .pipe(
       catchError(this.handleError)
     );
+  }
+
+  sendPost(post:IPost) : Observable<Object>{
+    return this.http.post(this.swaggerBaseUrl + "post/",post);
   }
 
   private handleError(error:any){
