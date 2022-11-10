@@ -18,3 +18,8 @@
     border: solid purple 3px;
     background-color: aquamarine;
 }
+#t1-1{
+    background-image:url("../../../../Assets/SoilTiles/dryDirt.jpg");
+    background-repeat: repeat;
+}
+
