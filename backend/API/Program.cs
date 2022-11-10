@@ -1,7 +1,10 @@
 using Models;
 using Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 using Serilog;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 // Setting up Serilog
 Log.Logger = new LoggerConfiguration()
@@ -36,6 +39,18 @@ builder.Services.AddScoped<IServices<FriendRelationship>, FriendServices>();
 builder.Services.AddScoped<IServices<Garden>, GardenServices>();
 builder.Services.AddScoped<IDBAccessFactory, DBAccessFactory>();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options => {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                    .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+        });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,6 +61,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
