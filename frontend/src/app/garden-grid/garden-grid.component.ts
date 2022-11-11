@@ -4,6 +4,8 @@ import { Guid } from 'guid-typescript';
 import { GardenService } from '../core/garden.service';
 import { PlantService } from '../core/plant.service';
 import { IGarden } from '../shared/interface';
+import { Moment } from 'moment';
+import * as moment from 'moment';
 
 
 @Component({
@@ -84,8 +86,7 @@ export class GardenGridComponent implements OnInit, OnChanges {
         next: (res) => {
           let tileId: string = elementId.substring(1, elementId.length);
           this.garden.tiles[Number.parseInt(tileId)].plant_information.id = res;
-          console.log(new Date(Date.now()).toISOString());
-          this.garden.tiles[Number.parseInt(tileId)].plant_time = new Date(Date.now()).toISOString();
+          this.garden.tiles[Number.parseInt(tileId)].plant_time = moment().format();
           this.gservice.updateGarden(this.garden).subscribe({
             next: (res) => {
               this.garden = res;
