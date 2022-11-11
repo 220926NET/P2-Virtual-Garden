@@ -1,0 +1,59 @@
+.tools{
+    height:100%;
+}
+
+.toolOptionsArea{
+    display:flex;
+    flex-direction: column;
+    height:90%;
+    gap:5pt;
+}
+
+.toolOption{
+    background-color: azure;
+    height:35%;
+
+}
+.toolOptionHeader{
+    background-color: aquamarine;
+    display:flex;
+    justify-content: space-between;
+    padding:0pt 10pt 3pt 10pt;
+    
+}
+#GardenButton{
+    background-color: rgb(99, 197, 164);
+    background-image: url("../../assets/trowel.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+#HarvestButton{
+    background-color: rgb(99, 197, 164);
+    background-image: url("../../assets/harvest.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#TendButton{
+    background-color: rgb(99, 197, 164);
+    background-image: url("../../assets/tend.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+h3{
+    padding-left: 10pt;
+    background-color: lightsalmon;
+}
+
+h6{
+    
+}
+.toolOptionBody{
+    padding: 10pt 10pt 10pt 10pt;
+}
+
+.beginUsingToolButton{
+    width:20pt;
+    height:20pt;
+    
+}

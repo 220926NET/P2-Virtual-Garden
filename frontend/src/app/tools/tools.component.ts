@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolsComponent implements OnInit {
 
+  
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  GardenButton(){
+
   }
 
 }
