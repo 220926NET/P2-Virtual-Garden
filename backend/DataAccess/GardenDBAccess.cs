@@ -245,6 +245,24 @@ public class GardenDBAccess : IDBAccess<Garden>
         return new();
     }
 
+    public Guid GetId(string plantName)
+    {
+        try
+        {
+            using SqlConnection connection = _factory.GetConnection();
+            connection.Open();
+            SqlCommand cmd = new SqlCommand("select id from Plants where [name] = @name;", connection);
+            cmd.Parameters.AddWithValue("@name", plantName);
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows) if (reader.Read()) return (Guid)reader["id"];
+        }
+        catch (SqlException e)
+        {
+            Log.Error(e, "An exception was thrown while getting the plant's Guid");
+        }
+        return Guid.Empty;
+    }
+
     public Garden Update(Garden t)
     {
         if (new GardenValidator().isValid(Delete(t)))

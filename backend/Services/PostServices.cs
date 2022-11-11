@@ -41,6 +41,11 @@ public class PostServices : IServices<Post>
         throw new NotImplementedException();
     }
 
+    public Guid GetId(string plantName)
+    {
+        throw new NotImplementedException();
+    }
+
     public Post Update(Post t)
     {
         throw new NotImplementedException();

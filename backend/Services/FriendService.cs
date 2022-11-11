@@ -42,6 +42,11 @@ public class FriendServices : IServices<FriendRelationship>
         throw new NotImplementedException();
     }
 
+    public Guid GetId(string plantName)
+    {
+        throw new NotImplementedException();
+    }
+
     public FriendRelationship Update(FriendRelationship t)
     {
         throw new NotImplementedException();

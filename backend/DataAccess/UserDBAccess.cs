@@ -104,4 +104,9 @@ public class UserDBAccess : IDBAccess<User>
     {
         throw new NotImplementedException();
     }
+
+    public Guid GetId(string plantName)
+    {
+        throw new NotImplementedException();
+    }
 }
