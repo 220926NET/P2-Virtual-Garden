@@ -57,21 +57,24 @@ export class GardenGridComponent implements OnInit {
   }
 
   GetTileId(e: Event): void {
-    let elementId: string = (e.target as Element).id;
-    this.gservice.getPlant(sessionStorage.getItem('selectedTool')!).subscribe({
-      next: (res) => {
-        let tileId: string = elementId.substring(1, elementId.length);
-        this.garden.tiles[Number.parseInt(tileId)].plant_information.id = res;
-        this.gservice.updateGarden(this.garden).subscribe({
-          next: (res) => {
-            this.garden = res;
-            this.doRender();
-          },
-          error: (err) => { console.error(err); }
-        })
-      },
-      error: (err) => { console.error(err) }
-    })
+    if (sessionStorage.getItem('selectedTool') != 'nothing' || sessionStorage.getItem('selectedTool') != null) {
+      let elementId: string = (e.target as Element).id;
+      this.gservice.getPlant(sessionStorage.getItem('selectedTool')!).subscribe({
+        next: (res) => {
+          let tileId: string = elementId.substring(1, elementId.length);
+          this.garden.tiles[Number.parseInt(tileId)].plant_information.id = res;
+          this.gservice.updateGarden(this.garden).subscribe({
+            next: (res) => {
+              this.garden = res;
+              sessionStorage.setItem('selectedTool', 'nothing');
+              this.doRender();
+            },
+            error: (err) => { console.error(err); }
+          })
+        },
+        error: (err) => { console.error(err) }
+      });
+    }
   }
 
 
