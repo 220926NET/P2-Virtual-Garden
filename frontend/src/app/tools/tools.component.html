@@ -4,22 +4,22 @@
         <div class="toolOption">
             <div class="toolOptionHeader">
                 <h6>Garden</h6>  
-                <button id="GardenButton" class="beginUsingToolButton"></button>
+                <button id="GardenButton" class="beginUsingToolButton" (click)="GardenButton()"></button>
             </div>
             <div class="toolOptionBody">
                 <p>Choose What To Plant</p>
-                <div class="radioButtonArea">
-                    <input type="radio" id="daisy" name="fav_language" value="DAISY">
+                <mat-radio-group class="radioButtonArea" [(ngModel)]="gardenRadio" (change)="RadioGardenButton()">
+                    <mat-radio-button type="radio" id="daisy" name="plantChoice" value="daisy"></mat-radio-button>
                     <label for="daisy"><img src="../../assets/daisy.png" height="30" width="30"/></label><br>
-                    <input type="radio" id="rose" name="fav_language" value="ROSE">
+                    <mat-radio-button type="radio" id="rose" name="plantChoice" value="rose"></mat-radio-button>
                     <label for="rose"><img src="../../assets/rose.png" height="30" width="40"/></label><br>
-                    <input type="radio" id="pumpkin" name="fav_language" value="Pumpkin">
+                    <mat-radio-button type="radio" id="pumpkin" name="plantChoice" value="pumpkin"></mat-radio-button>
                     <label for="pumpkin"><img src="../../assets/pumpkin.png" height="30" width="30"/></label>
-                    <input type="radio" id="sunflower" name="fav_language" value="Sunflower">
+                    <mat-radio-button type="radio" id="sunflower" name="plantChoice" value="sunflower"></mat-radio-button>
                     <label for="sunflower"><img src="../../assets/sunflower.png" height="30" width="30"/></label>
-                    <input type="radio" id="lemon" name="fav_language" value="Lemon">
+                    <mat-radio-button type="radio" id="lemon" name="plantChoice" value="lemon"></mat-radio-button>
                     <label for="lemon"><img src="../../assets/lemon.png" height="30" width="30"/></label>
-                </div>
+                </mat-radio-group>
                 <p>Select Plot To Plant ---></p>
             </div>
             
@@ -27,7 +27,7 @@
         <div class="toolOption">
             <div class="toolOptionHeader">
                 <h6>Harvest</h6> 
-                <button id="HarvestButton" class="beginUsingToolButton"></button> 
+                <button id="HarvestButton" class="beginUsingToolButton" (click)="HarvestButton()"></button> 
             </div>
             <div class="toolOptionBody">
                 <p>Select Plot To Harvest ---></p>
@@ -36,7 +36,7 @@
         <div class="toolOption">
             <div class="toolOptionHeader">
                 <h6>Tend</h6> 
-                <button id="TendButton" class="beginUsingToolButton"></button> 
+                <button id="TendButton" class="beginUsingToolButton" (click)="TendButton()"></button> 
             </div>
             <div class="toolOptionBody">
                 <p>Select Plot To Tend ---></p>
