@@ -30,7 +30,10 @@ export class NavbarComponent implements OnInit {
 
     if (val.username && val.password) {
       this.authService.login(val.username, val.password)
-        .subscribe(() => this.isLoggedIn = this.authService.isLoggedIn());
+        .subscribe(() => {
+          this.isLoggedIn = this.authService.isLoggedIn()
+          this.loginForm.value.username = "";
+          this.loginForm.value.password = ""});
     }
 
     console.log(this.authService.isLoggedIn())
