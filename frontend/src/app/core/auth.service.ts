@@ -14,6 +14,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  public LoggedIn: boolean = this.isLoggedIn();
+
   login(username: string, password: string) {
     return this.http.post<IAuthResult>('https://localhost:7077/api/login', {username, password}).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -36,10 +38,17 @@ export class AuthService {
 
     sessionStorage.setItem('token', result.token);
     sessionStorage.setItem('expires', result.expires.toString());
+    this.LoggedIn = this.isLoggedIn();
   }
 
   public isLoggedIn() {
     return moment().isBefore(this.getExpiration())
+  }
+
+  logout() {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('expires');
+    this.LoggedIn = this.isLoggedIn();
   }
 
   getExpiration() {

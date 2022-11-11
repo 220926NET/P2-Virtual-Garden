@@ -1,6 +1,13 @@
 .fill-remaining-space {
     flex: 1 1 auto;
 }
+.login-form-group {
+    display: flex;
+}
+
+.logout-form-group {
+    display: flex;
+}
 
 mat-toolbar {
     height: 100px;
