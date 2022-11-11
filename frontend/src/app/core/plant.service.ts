@@ -16,7 +16,7 @@ export class PlantService {
     let elapsedTime: number = currentTime - plantTime;
     // How many milliseconds per phase
     let phase: number = (timeToGrow * 60000) / 2;
-    console.log(elapsedTime / 60000);
+    //console.log(elapsedTime / 60000);
     if (elapsedTime < phase) {
       return 0;
     } else if (elapsedTime > phase && elapsedTime < phase * 2) {
