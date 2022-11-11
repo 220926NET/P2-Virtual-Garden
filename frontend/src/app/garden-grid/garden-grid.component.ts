@@ -24,12 +24,14 @@ export class GardenGridComponent implements OnInit {
     console.log(this.garden);
     for (let i = 0; i < 16; i++) {
       const element: HTMLElement | null = document.getElementById("t" + i);
-      this.renderer.setStyle(element, "background-image", `url(${this.garden.tiles[i].plant_information.image_path})`);
-      this.renderer.setStyle(element, "background-repeat", "repeat");
+      this.renderer.setStyle(element, "background-image", `url(assets/${this.garden.tiles[i].plant_information.image_path})`);
+      this.renderer.setStyle(element, "background-size", "100%");
+      this.renderer.setStyle(element, "background-repeat", "no-repeat");
     }
   }
 
   ngOnInit(): void {
+    sessionStorage.setItem('selectedTool', 'nothing');
     // See if there is a garden saved
     this.gservice.getGarden(this.garden.user_id).subscribe({
       next: (res) => {
@@ -55,8 +57,24 @@ export class GardenGridComponent implements OnInit {
   }
 
   GetTileId(e: Event): void {
-    let elementId: string = (e.target as Element).id;
-    console.log(elementId);
+    if (sessionStorage.getItem('selectedTool') != 'nothing' || sessionStorage.getItem('selectedTool') != null) {
+      let elementId: string = (e.target as Element).id;
+      this.gservice.getPlant(sessionStorage.getItem('selectedTool')!).subscribe({
+        next: (res) => {
+          let tileId: string = elementId.substring(1, elementId.length);
+          this.garden.tiles[Number.parseInt(tileId)].plant_information.id = res;
+          this.gservice.updateGarden(this.garden).subscribe({
+            next: (res) => {
+              this.garden = res;
+              sessionStorage.setItem('selectedTool', 'nothing');
+              this.doRender();
+            },
+            error: (err) => { console.error(err); }
+          })
+        },
+        error: (err) => { console.error(err) }
+      });
+    }
   }
 
 

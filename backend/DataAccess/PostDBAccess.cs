@@ -70,15 +70,16 @@ public class PostDBAccess : IDBAccess<Post>
             cmd.Parameters.AddWithValue("@id", id);
 
             SqlDataReader reader = cmd.ExecuteReader();
-            if(reader.HasRows)
+            if (reader.HasRows)
             {
-                while(reader.Read()){
+                while (reader.Read())
+                {
                     Post post = new Post();
-                    
+
                     post.text = (string)reader["text"];
                     post.time = (DateTime)reader["time"];
                     post.sender_name = (string)reader["username"];
-                    
+
                     posts.Add(post);
                 }
             }
@@ -88,7 +89,7 @@ public class PostDBAccess : IDBAccess<Post>
             Log.Error(e, "An exception was thrown while adding the post");
         }
         return posts;
-        
+
     }
 
     public List<Post> GetAll()
@@ -102,6 +103,11 @@ public class PostDBAccess : IDBAccess<Post>
     }
 
     public Post Update(Post t)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Guid GetId(string plantName)
     {
         throw new NotImplementedException();
     }
