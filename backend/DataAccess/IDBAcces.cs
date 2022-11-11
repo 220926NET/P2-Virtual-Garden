@@ -8,4 +8,5 @@ public interface IDBAccess<T>
     List<T> GetAllById(Guid id);
     T Update(T t);
     T Delete(T t);
+    Guid GetId(string plantName);
 }

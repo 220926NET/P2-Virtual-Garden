@@ -27,7 +27,7 @@ public class GardenServices : IServices<Garden>
         throw new NotImplementedException();
     }
 
-     public List<Garden> GetAllById(Guid id)
+    public List<Garden> GetAllById(Guid id)
     {
         throw new NotImplementedException();
     }
@@ -35,6 +35,11 @@ public class GardenServices : IServices<Garden>
     public Garden GetById(Guid id)
     {
         return _gardenDatabase.GetById(id);
+    }
+
+    public Guid GetId(string plantName)
+    {
+        return _gardenDatabase.GetId(plantName);
     }
 
     public Garden Update(Garden t)

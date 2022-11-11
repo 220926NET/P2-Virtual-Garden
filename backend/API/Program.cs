@@ -40,7 +40,8 @@ builder.Services.AddScoped<IServices<Garden>, GardenServices>();
 builder.Services.AddScoped<IDBAccessFactory, DBAccessFactory>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(options => {
+        .AddJwtBearer(options =>
+        {
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
