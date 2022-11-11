@@ -5,6 +5,7 @@ using Models;
 using Services;
 using Serilog;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers;
 
@@ -60,6 +61,16 @@ public class UserController : ControllerBase
         _logger.LogInformation("Login Successful");
         return Ok(token);
 
+    }
+
+    [HttpGet]
+    [Route("user")]
+    [Authorize]
+    public ActionResult<string> GetCurrentUser()
+    {
+        string? userId = User?.FindFirst("userId")?.Value;
+
+        return Ok(userId);
     }
 
     private UserToken CreateToken(User user)

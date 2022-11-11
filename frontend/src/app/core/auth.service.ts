@@ -56,4 +56,8 @@ export class AuthService {
     return moment(expiration);
   }
 
+  getUserId() {
+    return this.http.get('https://localhost:7077/api/user', { responseType: 'text' });
+  }
+
 }

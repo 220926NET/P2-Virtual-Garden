@@ -1,5 +1,6 @@
 <mat-toolbar color="primary">
   <p>Some Text</p>
+  <button mat-raised-button (click)="getUserId()">UserIdButton</button>
   <span class="fill-remaining-space"></span>
 
   <div class="login-form-group" *ngIf="!authService.LoggedIn">

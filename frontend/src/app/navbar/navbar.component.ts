@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../core/auth.service';
+import { GardenService } from '../core/garden.service';
 //import { MatFormFieldControl} from '@angular/material/form-field'
 
 @Component({
@@ -12,7 +13,11 @@ import { AuthService } from '../core/auth.service';
 export class NavbarComponent implements OnInit {
 
   loginForm: FormGroup;
-  constructor(private fb: FormBuilder, public authService: AuthService) { 
+  userId: string = '';
+
+  constructor(private fb: FormBuilder,
+      public authService: AuthService,
+      private gService: GardenService) { 
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -29,13 +34,21 @@ export class NavbarComponent implements OnInit {
     if (val.username && val.password) {
       this.authService.login(val.username, val.password)
         .subscribe(() => {
-          this.loginForm.reset();});
+          this.loginForm.reset();
+          this.getUserId();
+          this.gService.getGarden(this.userId);
+        });
     }
 
   }
 
   logout() {
     this.authService.logout();
+    this.userId = "";
+  }
+
+  getUserId() {
+    this.authService.getUserId().subscribe(res => this.userId = res);
   }
 
 }
