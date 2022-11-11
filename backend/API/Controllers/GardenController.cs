@@ -19,6 +19,20 @@ public class GardenController : ControllerBase
         _gardenService = gardenService;
     }
 
+    [HttpGet]
+    [Route("plant/{plantName}")]
+    public ActionResult<Guid> GetPlant(string plantName)
+    {
+        Guid id = _gardenService.GetId(plantName);
+        if (id != Guid.Empty)
+        {
+            Log.Information($"Sent the GUID for {plantName}");
+            return Ok(id);
+        }
+        Log.Error("Could not get plant name");
+        return BadRequest("No plant name found");
+    }
+
     [HttpPost]
     [Route("garden")]
     public ActionResult<Post> Add(Garden garden)

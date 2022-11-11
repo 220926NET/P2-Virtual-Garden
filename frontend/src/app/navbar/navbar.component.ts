@@ -12,14 +12,12 @@ import { AuthService } from '../core/auth.service';
 export class NavbarComponent implements OnInit {
 
   loginForm: FormGroup;
-  constructor(private fb: FormBuilder, private authService: AuthService) { 
+  constructor(private fb: FormBuilder, public authService: AuthService) { 
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
-
-  public isLoggedIn: boolean = this.authService.isLoggedIn();
 
   ngOnInit(): void {
     console.log(this.authService.isLoggedIn())
@@ -30,10 +28,14 @@ export class NavbarComponent implements OnInit {
 
     if (val.username && val.password) {
       this.authService.login(val.username, val.password)
-        .subscribe(() => this.isLoggedIn = this.authService.isLoggedIn());
+        .subscribe(() => {
+          this.loginForm.reset();});
     }
 
-    console.log(this.authService.isLoggedIn())
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }

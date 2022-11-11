@@ -2,16 +2,22 @@
   <p>Some Text</p>
   <span class="fill-remaining-space"></span>
 
-  <form [formGroup]="loginForm" *ngIf="!isLoggedIn">
-    <mat-form-field appearance="outline" class="username">
-      <mat-label>Username</mat-label>
-      <input matInput name="username" formControlName="username" placeholder="Username">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Password</mat-label>
-      <input matInput name="password" formControlName="password" placeholder="Password" type="password">
-    </mat-form-field>
-  </form>
-  <button mat-raised-button (click)="login()">Login</button>
+  <div class="login-form-group" *ngIf="!authService.LoggedIn">
+    <form [formGroup]="loginForm">
+      <mat-form-field appearance="outline" class="username">
+        <mat-label>Username</mat-label>
+        <input matInput name="username" formControlName="username" placeholder="Username">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput name="password" formControlName="password" placeholder="Password" type="password">
+      </mat-form-field>
+    </form>
+    <button mat-raised-button (click)="login()">Login</button>
+  </div>
+  <div class="logout-form-group" *ngIf="authService.LoggedIn">
+    <p>Welcome!</p>
+    <button mat-raised-button (click)="logout()">Logout</button>
+  </div>
 
 </mat-toolbar>

@@ -1,25 +1,26 @@
-.gardenGrid-Outer{
-    border:solid black 3px;
-    height:100%;
-}
-.ggRow{
-    width:100%;
-    height:25%;
-    display:flex;
-}
-.tile{
-    flex:1;
-    height:100%;
-    width:100%;
-    border:solid green 2px;
-    background-color: bisque;
-}
-.tile:hover{
-    border: solid purple 3px;
-    background-color: aquamarine;
-}
-#t1-1{
-    background-image:url("../../../../Assets/SoilTiles/dryDirt.jpg");
-    background-repeat: repeat;
+.gardenGrid-Outer {
+    border: solid black 3px;
+    height: 100%;
 }
 
+.ggRow {
+    width: 100%;
+    height: 25%;
+    display: flex;
+}
+
+.tile {
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    border: solid green 2px;
+}
+
+.tile:hover {
+    border: solid purple 3px;
+}
+
+#t1-1 {
+    background-image: url("../../../../Assets/SoilTiles/dryDirt.jpg");
+    background-repeat: repeat;
+}

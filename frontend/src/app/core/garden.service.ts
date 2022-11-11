@@ -27,4 +27,8 @@ export class GardenService {
   getGarden(userId: string): Observable<IGarden> {
     return this.http.get<IGarden>(this.api + '/' + userId);
   }
+
+  getPlant(plantName: string): Observable<string> {
+    return this.http.get<string>(environment.baseApi + 'plant/' + plantName);
+  }
 }

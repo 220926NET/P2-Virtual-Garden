@@ -24,6 +24,8 @@ public class WeatherForecastController : ControllerBase // must inherit Controll
     [HttpGet(Name = "GetWeatherForecast"), Authorize]
     public IEnumerable<WeatherForecast> Get()
     {
+        string? value = User?.FindFirst("userId")?.Value;
+        Console.WriteLine(value);
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateTime.Now.AddDays(index),
