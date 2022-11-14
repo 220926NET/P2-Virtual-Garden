@@ -6,6 +6,7 @@ import { PlantService } from '../core/plant.service';
 import { IGarden } from '../shared/interface';
 import { Moment } from 'moment';
 import * as moment from 'moment';
+import { timer, interval } from 'rxjs';
 
 
 @Component({
@@ -76,6 +77,10 @@ export class GardenGridComponent implements OnInit, OnChanges {
         });
       },
     });
+    timer(60000, 60000).subscribe({
+      next: () => { this.doRender(); },
+      error: (err) => { console.error(err); }
+    })
   }
 
 
