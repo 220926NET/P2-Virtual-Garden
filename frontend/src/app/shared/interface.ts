@@ -97,3 +97,10 @@ export interface IAuthResult {
     expires: Date
 }
 
+export interface ICoordinates{
+    zip: number,
+    name: string,
+    lat: number,
+    lon: number,
+    country: string
+}

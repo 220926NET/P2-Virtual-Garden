@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 
 import { map, catchError } from 'rxjs';
-import { IForecast } from '../shared/interface';
+import { ICoordinates, IForecast } from '../shared/interface';
 import { SecretServiceService } from './secret-service.service';
 
 @Injectable({
@@ -21,4 +21,18 @@ export class WeatherService {
     // console.log(myForecast);
     return myForecast;
   }
+
+  getCoordinates(countryCode: string, zipCode:string) : Observable<ICoordinates> {
+    return this.http.get<ICoordinates>(`http://api.openweathermap.org/geo/1.0/zip?zip=${zipCode},${countryCode}&appid=${this.apiid}`);
+  }
+
+  getRegionalForecast(regLat:number, regLon:number) : Observable<IForecast>{
+    this.apiid = this.secret.getApiKey(); 
+    var myForecast = this.http.get<IForecast>(this.baseUrl + `lat=${regLat}&lon=${regLon}&appid=${this.apiid}&units=imperial`);
+    // console.log(myForecast);
+    return myForecast;
+  }
+
+
+
 }

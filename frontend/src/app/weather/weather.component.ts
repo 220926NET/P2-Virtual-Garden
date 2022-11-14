@@ -68,6 +68,8 @@ export class WeatherComponent implements OnInit {
 
 }
 
+
+
 //All possible codes for main
 //Thunderstorm
 //Drizzle
