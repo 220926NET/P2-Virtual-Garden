@@ -139,6 +139,7 @@ public class ModelsTests
     public void GardenCreated()
     {
         Garden p = new();
+        p.tiles.Add(new());
         GardenValidator validator = new GardenValidator();
         Assert.NotNull(p);
         Assert.False(validator.isValid(p));
