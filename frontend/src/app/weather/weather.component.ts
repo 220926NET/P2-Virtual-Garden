@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { IForecast, ICoordinates } from '../shared/interface';
 import { WeatherService } from '../core/weather.service';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -9,6 +9,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
+  weatherImage:string = "url('../../../../Assets/WeatherGifs/sunny.gif')";
   mainWeatherDesc: string = "";
   countryCode = '';
   zipCode = '';
@@ -72,12 +73,13 @@ export class WeatherComponent implements OnInit {
     countryCode: new FormControl('')
   });
 
-  constructor(private weatherService: WeatherService) { }
+  constructor(private weatherService: WeatherService, private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.weatherService.getForecast().subscribe((forecast: IForecast) => {
       this.todaysForecast = forecast;
       this.mainWeatherDesc = forecast.weather[0].main;
+      this.doRender();
     });
     
   }
@@ -97,8 +99,46 @@ export class WeatherComponent implements OnInit {
       this.weatherService.getRegionalForecast(this.localCoodinates.lat, this.localCoodinates.lon).subscribe((forecast: IForecast) => {
         this.todaysForecast = forecast;
         this.mainWeatherDesc = forecast.weather[0].main;
+        this.doRender();
       });
     })
+  }
+
+  doRender(): void {
+    console.log(this.mainWeatherDesc);
+    
+      const element: HTMLElement | null = document.getElementById("gifWeatherArea");
+      this.renderer.setStyle(element, "background-image", `${this.determineAsset()}`);
+    
+  }
+
+  //This will look at the weather descritipn returned from  the API and choose the corresponding
+  //gif file for the background
+  determineAsset() : string{
+    let myAssestString = ""
+    
+    if(this.mainWeatherDesc == "Rain" || this.mainWeatherDesc == "Drizzle" || this.mainWeatherDesc == "Squall"){
+      myAssestString = `url(assets/Rainy.gif)`;
+      return myAssestString;
+    }else if(this.mainWeatherDesc == "Clouds"){
+      myAssestString = `url(assets/partlyCloudy.gif)`;
+      return myAssestString;
+    }else if(this.mainWeatherDesc == "Snow"){
+      myAssestString = `url(assets/snow.gif)`;
+      return myAssestString;
+    }else if(this.mainWeatherDesc == "Mist" || this.mainWeatherDesc == "Fog"){
+      myAssestString = `url(assets/fog.gif)`;
+      return myAssestString;
+    }else if(this.mainWeatherDesc == "Thunderstorm" || this.mainWeatherDesc == "Tornado"){
+      myAssestString = `url(assets/thunder.gif)`;
+      return myAssestString;
+    }else if(this.mainWeatherDesc == "Sand" || this.mainWeatherDesc == "Haze" || this.mainWeatherDesc == "Dust"){
+      myAssestString = `url(assets/sand.gif)`;
+      return myAssestString;
+    }else{
+      myAssestString = `url(assets/sunny.gif)`;
+      return myAssestString;
+    }
   }
 
 }
