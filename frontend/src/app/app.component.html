@@ -14,9 +14,10 @@
   <app-landing-page></app-landing-page>
 </div>
 <div *ngIf="user != noUser" class="userArea">
-  <section class="userBanner">
-    <h1>Banner</h1>
-  </section>
+    <section class="userBanner">
+      <h1>Banner</h1>
+      <app-friends></app-friends>
+    </section>
   <section class="parentContainer">
     <app-tools></app-tools>
     <app-garden></app-garden>
