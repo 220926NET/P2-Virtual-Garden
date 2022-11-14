@@ -10,6 +10,11 @@ import { IGarden } from '../shared/interface';
 })
 export class GardenService {
   api: string = environment.baseApi + 'garden';
+  garden: IGarden = {
+    id: Guid.EMPTY,
+    user_id: '',
+    tiles: []
+  }
   constructor(private http: HttpClient) { }
 
   addGarden(garden: IGarden): Observable<IGarden> {
@@ -24,7 +29,7 @@ export class GardenService {
     return this.http.put<IGarden>(this.api, garden);
   }
 
-  getGarden(userId: string): Observable<IGarden> {
+  getGarden(userId: string) {
     return this.http.get<IGarden>(this.api + '/' + userId);
   }
 

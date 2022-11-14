@@ -14,6 +14,7 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { LandingPageModule } from './landing-page/landing-page.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatRadioModule} from '@angular/material/radio'
 
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -46,7 +47,9 @@ import { FriendsComponent } from './friends/friends.component';
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatRadioModule,
+    FormsModule
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true } ],
   bootstrap: [AppComponent]
