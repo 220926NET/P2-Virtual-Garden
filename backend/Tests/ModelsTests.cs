@@ -173,4 +173,15 @@ public class ModelsTests
         Post p = new();
         Assert.True(!string.IsNullOrEmpty(p.ToString()));
     }
+
+    [Fact]
+    public void UserTokenCreated()
+    {
+        UserToken token = new();
+        Assert.NotNull(token);
+        Assert.False(new UserTokenValidator().isValid(token));
+        token.token = " test ";
+        token.expires = DateTime.Now;
+        Assert.True(new UserTokenValidator().isValid(token));
+    }
 }
