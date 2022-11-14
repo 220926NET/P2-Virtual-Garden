@@ -27,6 +27,7 @@ import { AuthInterceptorService } from './core/authInterceptor.service';
 import { AppRoutingModule } from './app-routing.module';
 
 import { FriendsComponent } from './friends/friends.component';
+import { UserPageComponent } from './user-page/user-page.component';
 
 
 
@@ -36,10 +37,12 @@ import { FriendsComponent } from './friends/friends.component';
     NavbarComponent,
     ToolsComponent,
     GardenComponent,
+    GardenGridComponent,
     PostComponent,
     GardenGridComponent,
     WeatherComponent,
-    FriendsComponent
+    FriendsComponent,
+    UserPageComponent
   ],
   imports: [
     BrowserModule,
