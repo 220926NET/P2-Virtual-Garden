@@ -6,9 +6,9 @@ name: Build, Test, and run sonar cloud
 # these are events that triggers this workflow/pipeline
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main","code-coverage-backend" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main","code-coverage-backend" ]
     # this allows me to manually trigger this workflow
   workflow_dispatch:
 
