@@ -6,6 +6,7 @@ import { WelcomePostsComponent } from './landing-page/welcome-posts/welcome-post
 
 
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { AuthService } from './core/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit{
   title = 'frontend';
   user : string = "hello";
   noUser : string = "";
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
     throw new Error('Method not implemented.');

@@ -104,3 +104,7 @@ export interface ICoordinates{
     lon: number,
     country: string
 }
+export interface IUser {
+    id: string
+}
+

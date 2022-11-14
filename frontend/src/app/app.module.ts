@@ -24,6 +24,11 @@ import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { AuthInterceptorService } from './core/authInterceptor.service';
 
+import { AppRoutingModule } from './app-routing.module';
+
+import { FriendsComponent } from './friends/friends.component';
+
+
 
 @NgModule({
   declarations: [
@@ -33,7 +38,8 @@ import { AuthInterceptorService } from './core/authInterceptor.service';
     GardenComponent,
     PostComponent,
     GardenGridComponent,
-    WeatherComponent
+    WeatherComponent,
+    FriendsComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +56,8 @@ import { AuthInterceptorService } from './core/authInterceptor.service';
     MatButtonModule,
     MatRadioModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    AppRoutingModule
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true } ],
   bootstrap: [AppComponent]
