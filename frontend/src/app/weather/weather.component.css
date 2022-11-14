@@ -10,6 +10,9 @@
     background-image: url("../../../../Assets/WeatherGifs/sunny.gif");
     background-size: contain;
 }
+.weatherLocatorForm{
+    display: flex;
+}
 
 .gardenGridArea{
     height:90%;
