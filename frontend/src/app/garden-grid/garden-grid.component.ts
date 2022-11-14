@@ -1,8 +1,12 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnChanges, OnInit, Renderer2, SimpleChanges } from '@angular/core';
 import { UrlHandlingStrategy } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { GardenService } from '../core/garden.service';
+import { PlantService } from '../core/plant.service';
 import { IGarden } from '../shared/interface';
+import { Moment } from 'moment';
+import * as moment from 'moment';
+import { timer, interval } from 'rxjs';
 
 
 @Component({
@@ -10,7 +14,7 @@ import { IGarden } from '../shared/interface';
   templateUrl: './garden-grid.component.html',
   styleUrls: ['./garden-grid.component.css']
 })
-export class GardenGridComponent implements OnInit {
+export class GardenGridComponent implements OnInit, OnChanges {
   barbGuid: string = "11dc56fa-0841-42d7-b6e2-e793ed2ec2ce";
   garden: IGarden = {
     id: Guid.EMPTY,
@@ -18,13 +22,32 @@ export class GardenGridComponent implements OnInit {
     tiles: []
   }
 
-  constructor(private gservice: GardenService, private renderer: Renderer2) { }
+  constructor(private gservice: GardenService, private renderer: Renderer2, private pservice: PlantService) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.doRender();
+  }
 
   doRender(): void {
     console.log(this.garden);
     for (let i = 0; i < 16; i++) {
       const element: HTMLElement | null = document.getElementById("t" + i);
-      this.renderer.setStyle(element, "background-image", `url(assets/${this.gservice.garden.tiles[i].plant_information.image_path})`);
+
+      // Pick the phase to render
+      let phase: number = this.pservice.getPhase(this.garden.tiles[i].plant_time, this.garden.tiles[i].plant_information.growth_minuets);
+      //console.log(phase);
+      switch (phase) {
+        case 0:
+          this.renderer.setStyle(element, "background-image", `url(assets/sprout.png)`);
+          break;
+        case 1:
+          this.renderer.setStyle(element, "background-image", `url(assets/foil.jpg)`);
+          break;
+        default:
+          this.renderer.setStyle(element, "background-image", `url(assets/${this.garden.tiles[i].plant_information.image_path})`);
+          break;
+      }
+
       this.renderer.setStyle(element, "background-size", "100%");
       this.renderer.setStyle(element, "background-repeat", "no-repeat");
     }
@@ -32,7 +55,7 @@ export class GardenGridComponent implements OnInit {
 
   ngOnInit(): void {
     this.doRender();
-    // sessionStorage.setItem('selectedTool', 'nothing');
+    sessionStorage.setItem('selectedTool', 'nothing');
     // // See if there is a garden saved
     // this.gservice.getGarden(this.garden.user_id).subscribe({
     //   next: (res) => {
@@ -55,7 +78,12 @@ export class GardenGridComponent implements OnInit {
     //     });
     //   },
     // });
+    timer(60000, 60000).subscribe({
+      next: () => { this.doRender(); },
+      error: (err) => { console.error(err); }
+    })
   }
+
 
   GetTileId(e: Event): void {
     if (sessionStorage.getItem('selectedTool') != 'nothing' || sessionStorage.getItem('selectedTool') != null) {
@@ -64,6 +92,7 @@ export class GardenGridComponent implements OnInit {
         next: (res) => {
           let tileId: string = elementId.substring(1, elementId.length);
           this.garden.tiles[Number.parseInt(tileId)].plant_information.id = res;
+          this.garden.tiles[Number.parseInt(tileId)].plant_time = moment().format();
           this.gservice.updateGarden(this.garden).subscribe({
             next: (res) => {
               this.garden = res;

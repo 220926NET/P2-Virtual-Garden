@@ -1,0 +1,11 @@
+.userBanner{
+    flex: 1;
+    height: 80vh;
+    color:white;
+}
+.parentContainer{
+    position:absolute;
+    bottom: 138px;
+    color: white;
+    text-align: center;
+}
