@@ -21,7 +21,6 @@ export class PostComponent implements OnInit{
   //do not gaa or gcm before removing this
   userId : Guid = Guid.parse('9eb40a35-7a1f-44b5-af6f-68440861cbf4');
   comment = new FormControl();
-  @Output() commentUpdated = new EventEmitter<void>();
 
 
   constructor(private postService: PostService) { }

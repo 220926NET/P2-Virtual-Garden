@@ -21,7 +21,11 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { AuthInterceptorService } from './core/authInterceptor.service';
+
 import { AppRoutingModule } from './app-routing.module';
+
+import { FriendsComponent } from './friends/friends.component';
+
 
 
 @NgModule({
@@ -32,7 +36,8 @@ import { AppRoutingModule } from './app-routing.module';
     GardenComponent,
     PostComponent,
     GardenGridComponent,
-    WeatherComponent
+    WeatherComponent,
+    FriendsComponent
   ],
   imports: [
     BrowserModule,
