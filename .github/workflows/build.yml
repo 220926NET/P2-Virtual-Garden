@@ -62,11 +62,11 @@ jobs:
     # equivalent to doing dotnet restore in your commandline
     # dotnet restore will download all your dependencies and make sure all your project references are correctly configured
     # equivalent to doing npm install
-    - name: Restore dependencies
-      run: dotnet restore ${{env.WORKING_DIRECTORY}}
-    # equivalent to you doing dotnet build
-    - name: Build
-      run: dotnet build --no-restore ${{env.WORKING_DIRECTORY}}
+    # - name: Restore dependencies
+    #   run: dotnet restore ${{env.WORKING_DIRECTORY}}
+    # # equivalent to you doing dotnet build
+    # - name: Build
+    #   run: dotnet build --no-restore ${{env.WORKING_DIRECTORY}}
     # running dotnet test
     - name: Test
       run: dotnet test --no-build --verbosity normal ${{env.WORKING_DIRECTORY}} --collect:"XPlat Code Coverage" --logger trx -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
