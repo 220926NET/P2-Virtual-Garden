@@ -35,7 +35,7 @@ public class UserServices : IUserServices
             newUser.username = user.username;
             newUser.passwordHash = newPasswordHash;
             newUser.passwordSalt = newPasswordSalt;
-            
+
         }
 
         return _userDatabase.Add(newUser);
