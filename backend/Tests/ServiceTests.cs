@@ -36,4 +36,12 @@ public class ServiceTests
         Assert.Throws<NotImplementedException>(() => service.Update(test));
         Assert.Throws<NotImplementedException>(() => service.Delete(test));
     }
+
+    [Fact]
+    public void SqlConnectionFactoryWorks()
+    {
+        SqlConnectionFactory factory = new SqlConnectionFactory();
+        Assert.NotNull(factory);
+        Assert.Throws<ArgumentException>(() => factory.GetConnection());
+    }
 }
