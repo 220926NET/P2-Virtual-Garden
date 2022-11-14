@@ -16,11 +16,11 @@ import { timer, interval } from 'rxjs';
 })
 export class GardenGridComponent implements OnInit, OnChanges {
   barbGuid: string = "11dc56fa-0841-42d7-b6e2-e793ed2ec2ce";
-  garden: IGarden = {
-    id: Guid.EMPTY,
-    user_id: this.barbGuid,
-    tiles: []
-  }
+  // garden: IGarden = {
+  //   id: Guid.EMPTY,
+  //   user_id: this.barbGuid,
+  //   tiles: []
+  // }
 
   constructor(private gservice: GardenService, private renderer: Renderer2, private pservice: PlantService) { }
 
@@ -29,12 +29,12 @@ export class GardenGridComponent implements OnInit, OnChanges {
   }
 
   doRender(): void {
-    console.log(this.garden);
+    console.log(this.gservice.garden);
     for (let i = 0; i < 16; i++) {
       const element: HTMLElement | null = document.getElementById("t" + i);
 
       // Pick the phase to render
-      let phase: number = this.pservice.getPhase(this.garden.tiles[i].plant_time, this.garden.tiles[i].plant_information.growth_minuets);
+      let phase: number = this.pservice.getPhase(this.gservice.garden.tiles[i].plant_time, this.gservice.garden.tiles[i].plant_information.growth_minuets);
       //console.log(phase);
       switch (phase) {
         case 0:
@@ -44,7 +44,7 @@ export class GardenGridComponent implements OnInit, OnChanges {
           this.renderer.setStyle(element, "background-image", `url(assets/foil.jpg)`);
           break;
         default:
-          this.renderer.setStyle(element, "background-image", `url(assets/${this.garden.tiles[i].plant_information.image_path})`);
+          this.renderer.setStyle(element, "background-image", `url(assets/${this.gservice.garden.tiles[i].plant_information.image_path})`);
           break;
       }
 
@@ -91,11 +91,11 @@ export class GardenGridComponent implements OnInit, OnChanges {
       this.gservice.getPlant(sessionStorage.getItem('selectedTool')!).subscribe({
         next: (res) => {
           let tileId: string = elementId.substring(1, elementId.length);
-          this.garden.tiles[Number.parseInt(tileId)].plant_information.id = res;
-          this.garden.tiles[Number.parseInt(tileId)].plant_time = moment().format();
-          this.gservice.updateGarden(this.garden).subscribe({
+          this.gservice.garden.tiles[Number.parseInt(tileId)].plant_information.id = res;
+          this.gservice.garden.tiles[Number.parseInt(tileId)].plant_time = moment().format();
+          this.gservice.updateGarden(this.gservice.garden).subscribe({
             next: (res) => {
-              this.garden = res;
+              this.gservice.garden = res;
               sessionStorage.setItem('selectedTool', 'nothing');
               this.doRender();
             },
