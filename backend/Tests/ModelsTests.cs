@@ -167,6 +167,10 @@ public class ModelsTests
         Assert.True(validator.isValid(p));
     }
 
-    //Test for GetAllPostsById
-    // [Fact]
+    [Fact]
+    public void PostToStringReturnsSomething()
+    {
+        Post p = new();
+        Assert.True(!string.IsNullOrEmpty(p.ToString()));
+    }
 }
