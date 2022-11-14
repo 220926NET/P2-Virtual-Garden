@@ -5,6 +5,7 @@ import { WelcomeGardenComponent } from './landing-page/welcome-garden/welcome-ga
 import { WelcomePostsComponent } from './landing-page/welcome-posts/welcome-posts.component';
 
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { AuthService } from './core/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -16,5 +17,6 @@ export class AppComponent {
   title = 'frontend';
   user : string = "hello";
   noUser : string = "";
+  constructor(public authService: AuthService) { }
 
 }

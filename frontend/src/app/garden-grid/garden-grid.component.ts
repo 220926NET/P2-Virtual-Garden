@@ -54,29 +54,30 @@ export class GardenGridComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.doRender();
     sessionStorage.setItem('selectedTool', 'nothing');
-    // See if there is a garden saved
-    this.gservice.getGarden(this.garden.user_id).subscribe({
-      next: (res) => {
-        // Garden found in database set that to render
-        this.garden = res;
-        this.doRender();
-      },
-      error: (err) => {
-        // Garden not found try to create one
-        this.gservice.addGarden(this.garden).subscribe({
-          next: (res) => {
-            // Set the created garden to render
-            this.garden = res;
-            this.doRender();
-          },
-          error: (err2) => {
-            // Unable to create garden, log this error
-            console.error(err2);
-          }
-        });
-      },
-    });
+    // // See if there is a garden saved
+    // this.gservice.getGarden(this.garden.user_id).subscribe({
+    //   next: (res) => {
+    //     // Garden found in database set that to render
+    //     this.garden = res;
+    //     this.doRender();
+    //   },
+    //   error: (err) => {
+    //     // Garden not found try to create one
+    //     this.gservice.addGarden(this.garden).subscribe({
+    //       next: (res) => {
+    //         // Set the created garden to render
+    //         this.garden = res;
+    //         this.doRender();
+    //       },
+    //       error: (err2) => {
+    //         // Unable to create garden, log this error
+    //         console.error(err2);
+    //       }
+    //     });
+    //   },
+    // });
     timer(60000, 60000).subscribe({
       next: () => { this.doRender(); },
       error: (err) => { console.error(err); }

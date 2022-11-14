@@ -97,3 +97,7 @@ export interface IAuthResult {
     expires: Date
 }
 
+export interface IUser {
+    id: string
+}
+
