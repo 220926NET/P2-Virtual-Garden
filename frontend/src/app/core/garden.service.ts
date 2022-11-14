@@ -30,9 +30,7 @@ export class GardenService {
   }
 
   getGarden(userId: string) {
-    this.http.get<IGarden>(this.api + '/' + userId).subscribe(res => {
-      this.garden = res;
-    });
+    return this.http.get<IGarden>(this.api + '/' + userId);
   }
 
   getPlant(plantName: string): Observable<string> {

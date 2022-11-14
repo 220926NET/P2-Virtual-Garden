@@ -31,6 +31,7 @@ export class GardenGridComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.doRender();
     // sessionStorage.setItem('selectedTool', 'nothing');
     // // See if there is a garden saved
     // this.gservice.getGarden(this.garden.user_id).subscribe({

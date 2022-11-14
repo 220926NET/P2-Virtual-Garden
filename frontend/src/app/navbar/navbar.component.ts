@@ -35,8 +35,13 @@ export class NavbarComponent implements OnInit {
       this.authService.login(val.username, val.password)
         .subscribe(() => {
           this.loginForm.reset();
-          this.getUserId();
-          this.gService.getGarden(this.userId);
+          this.getUserId().subscribe(res => {
+            this.userId = res;
+            this.gService.getGarden(this.userId).subscribe(res => {
+              this.gService.garden = res;
+              this.authService.LoggedIn = this.authService.isLoggedIn();
+            });
+          });
         });
     }
 
@@ -48,7 +53,19 @@ export class NavbarComponent implements OnInit {
   }
 
   getUserId() {
-    this.authService.getUserId().subscribe(res => this.userId = res);
+    return this.authService.getUserId();
+  }
+  
+  register() {
+    const val = this.loginForm.value;
+
+    if (val.username && val.password) {
+      this.authService.register(val.username, val.password).subscribe((res) => {
+        this.gService.garden.user_id = res.id;
+        this.gService.addGarden(this.gService.garden).subscribe();
+        this.loginForm.reset();
+      });
+    }
   }
 
 }

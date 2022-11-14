@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { catchError, shareReplay, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { IAuthResult } from '../shared/interface';
+import { IAuthResult, IUser } from '../shared/interface';
 import { throwError } from 'rxjs';
 
 
@@ -33,12 +33,16 @@ export class AuthService {
       )
   }
 
+  register(username: string, password: string) {
+    return this.http.post<IUser>('https://localhost:7077/api/register', {username, password}).pipe(
+      shareReplay()
+    )
+  }
+
   private setSession(result: IAuthResult) {
-
-
     sessionStorage.setItem('token', result.token);
     sessionStorage.setItem('expires', result.expires.toString());
-    this.LoggedIn = this.isLoggedIn();
+    //this.LoggedIn = this.isLoggedIn();
   }
 
   public isLoggedIn() {
