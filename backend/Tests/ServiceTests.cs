@@ -162,6 +162,7 @@ public class ServiceTests
 
         Assert.Throws<NotImplementedException>(() => fservice.GetAllById(Guid.Empty));
         Assert.Throws<NotImplementedException>(() => fservice.GetById(Guid.Empty));
+        Assert.Throws<NotImplementedException>(() => fservice.GetById(0));
         Assert.Throws<NotImplementedException>(() => fservice.GetId(""));
         Assert.Throws<NotImplementedException>(() => fservice.Update(f));
         Assert.Throws<NotImplementedException>(() => pservice.Delete(new()));
@@ -171,6 +172,7 @@ public class ServiceTests
         Assert.Throws<NotImplementedException>(() => pservice.GetId(""));
         Assert.Throws<NotImplementedException>(() => pservice.Update(new()));
         Assert.Throws<NotImplementedException>(() => gservice.GetAll());
+        Assert.Throws<NotImplementedException>(() => gservice.GetAllById(Guid.NewGuid()));
         Assert.Throws<NotImplementedException>(() => uservice.GetById(0));
         Assert.Throws<NotImplementedException>(() => uservice.Update(new()));
         Assert.Throws<NotImplementedException>(() => uservice.Delete(new()));
