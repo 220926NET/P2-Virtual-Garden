@@ -10,23 +10,7 @@
 <header>
   <app-navbar></app-navbar>
 </header>
-<div *ngIf="!authService.LoggedIn" class="userArea">
-  <app-landing-page></app-landing-page>
-</div>
-<div *ngIf="authService.LoggedIn" class="userArea">
-  <section class="userBanner">
-    <h1>Banner</h1>
-    <div class = "header">
-      <app-friends></app-friends>
-      <app-users></app-users>
-    </div>
-  </section>
-  <section class="parentContainer">
-    <app-tools></app-tools>
-    <app-garden></app-garden>
-    <app-post></app-post>
-  </section>
-</div>
+<router-outlet></router-outlet>
 <footer>
   <p>Site made possible by:JRCD</p>
 </footer>

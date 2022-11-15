@@ -7,8 +7,11 @@
     width:100%;
     /* background-image: url("../../../../Assets/WeatherGifs/Rainy.gif"); */
     /* background-image: url("../../../../Assets/WeatherGifs/partlyCloudy.gif"); */
-    background-image: url("../../../../Assets/WeatherGifs/sunny.gif");
+    /* background-image: url("../../../../Assets/WeatherGifs/sunny.gif"); */
     background-size: contain;
+}
+.weatherLocatorForm{
+    display: flex;
 }
 
 .gardenGridArea{

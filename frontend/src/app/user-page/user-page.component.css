@@ -1,0 +1,29 @@
+.userArea{
+    height:85%;
+}
+
+.userBanner{
+    height:15%;
+}
+.parentContainer{
+    height:80%;
+    background-color: blueviolet;
+    display:flex;
+    justify-content: space-between;
+    gap:10pt;
+}
+app-tools{
+    flex:1;
+    background-color: aquamarine;
+}
+app-garden{
+    flex:3;
+    height:100%;
+    background-color: blanchedalmond;
+}
+app-post{
+    flex:1;
+    background-color: lightcoral;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
