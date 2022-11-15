@@ -22,4 +22,9 @@ export class FriendService {
   deleteFriend(rel: IFriendRelationship): Observable<IFriendRelationship> {
     return this.http.delete<IFriendRelationship>(this.api, { body: rel });
   }
+
+  getExists(username:string):Observable<string>
+  {
+    return this.http.get<string>(environment.baseApi + "users/"+ username);
+  }
 }

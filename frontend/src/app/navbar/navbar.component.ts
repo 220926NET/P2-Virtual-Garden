@@ -42,7 +42,11 @@ export class NavbarComponent implements OnInit {
             this.gService.getGarden(this.userId).subscribe(res => {
               this.gService.garden = res;
               this.authService.LoggedIn = this.authService.isLoggedIn();
+<<<<<<< HEAD
+              sessionStorage.setItem("username", val.username);
+=======
               this.router.navigateByUrl(`user/${val.username}`);
+>>>>>>> main
             });
           });
         });

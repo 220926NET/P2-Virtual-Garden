@@ -27,6 +27,7 @@ import { AuthInterceptorService } from './core/authInterceptor.service';
 import { AppRoutingModule } from './app-routing.module';
 
 import { FriendsComponent } from './friends/friends.component';
+import { UsersComponent } from './users/users.component';
 import { UserPageComponent } from './user-page/user-page.component';
 
 
@@ -37,11 +38,11 @@ import { UserPageComponent } from './user-page/user-page.component';
     NavbarComponent,
     ToolsComponent,
     GardenComponent,
-    GardenGridComponent,
     PostComponent,
     GardenGridComponent,
     WeatherComponent,
     FriendsComponent,
+    UsersComponent,
     UserPageComponent
   ],
   imports: [
@@ -55,8 +56,6 @@ import { UserPageComponent } from './user-page/user-page.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
     MatRadioModule,
     FormsModule,
     MatSelectModule,

@@ -189,6 +189,11 @@ public class FriendDBAccess : IDBAccess<FriendRelationship>
         throw new NotImplementedException();
     }
 
+    public FriendRelationship Exists(string username)
+    {
+        throw new NotImplementedException();
+    }
+
     public FriendRelationship Update(FriendRelationship t)
     {
         throw new NotImplementedException();

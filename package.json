@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "guid-typescript": "^1.0.9"
+    "guid-typescript": "^1.0.9",
+    "rxjs": "^7.5.7"
   }
 }

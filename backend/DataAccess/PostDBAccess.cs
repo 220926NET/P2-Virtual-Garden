@@ -102,6 +102,11 @@ public class PostDBAccess : IDBAccess<Post>
         throw new NotImplementedException();
     }
 
+    public Post Exists(string username)
+    {
+        throw new NotImplementedException();
+    }
+
     public Post Update(Post t)
     {
         throw new NotImplementedException();

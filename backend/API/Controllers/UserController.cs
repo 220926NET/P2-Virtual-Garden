@@ -73,6 +73,19 @@ public class UserController : ControllerBase
         return Ok(userId);
     }
 
+    [HttpGet]
+    [Route("users/{username}")]
+    public ActionResult<string> Exists(string username)
+    {
+        if(new UserValidator().isValid(_userService.Exists(username)))
+        {
+            return Ok(username);
+        }
+
+        return Ok("");
+    }
+
+
     private UserToken CreateToken(User user)
     {
         List<Claim> claims = new List<Claim>
