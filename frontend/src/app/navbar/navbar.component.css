@@ -21,3 +21,18 @@ mat-form-field {
 mat-form-field.mat-form-field-wrapper {
     padding-bottom: 0pt;
 }
+
+p.welcome-username {
+    text-align: center;
+    justify-content: center;
+    height: max-content;
+    width: max-content;
+    margin: 0px 5pt;
+    padding: 12pt 0pt;
+}
+
+button {
+    margin: 2pt 5pt;
+    height: 50pt;
+    width: 100pt;
+}
