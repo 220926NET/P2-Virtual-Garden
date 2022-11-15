@@ -17,7 +17,7 @@ export class UserService {
 
   getExists(username:string):Observable<string>
   {
-    return this.http.get<string>(environment.baseApi + "users/"+ username);
+    return this.http.get(environment.baseApi + "users/"+ username, {responseType: 'text'});
   }
 
 

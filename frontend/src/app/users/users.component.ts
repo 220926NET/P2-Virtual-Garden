@@ -34,6 +34,19 @@ export class UsersComponent implements OnInit {
       {
         next:(res) =>{
           this.display = res
+          if(this.display){
+            console.log("pizza");
+            this.friend.friendname = myfriend;
+            this.friend.username = sessionStorage.getItem("username")!;
+            this._friendService.addFriend(this.friend).subscribe(
+              {
+                next:(res) => {
+                  console.log(res);
+                },
+                error:(err) => console.error(err)
+              }
+            );
+          }
         },
         error:(err) =>{
           console.log("Users not sent");
@@ -41,18 +54,6 @@ export class UsersComponent implements OnInit {
         
       }
     )
-    if (this.display==null){
-      this.friend.friendname = myfriend;
-      this.friend.username = sessionStorage.getItem("username")!;
-      this._friendService.addFriend(this.friend).subscribe(
-        {
-          next:(res) => {
-            console.log(res);
-          },
-          error:(err) => console.error(err)
-        }
-      );
-    }
   }
 
 }

@@ -15,7 +15,7 @@ export class FriendsComponent implements OnInit {
   constructor(private _friendService:FriendService) { }
 
   ngOnInit(): void {
-    this._friendService.getFriend("jallen").subscribe(
+    this._friendService.getFriend(sessionStorage.getItem("username")!).subscribe(
       {
         next:(res) =>{
           this.display = res;
@@ -29,7 +29,7 @@ export class FriendsComponent implements OnInit {
   }
 
   getFriends(){
-    this._friendService.getFriend("jallen").subscribe(
+    this._friendService.getFriend(sessionStorage.getItem("username")!).subscribe(
       {
         next:(res) =>{
           this.display = res;
