@@ -139,6 +139,7 @@ public class ModelsTests
     public void GardenCreated()
     {
         Garden p = new();
+        p.tiles.Add(new());
         GardenValidator validator = new GardenValidator();
         Assert.NotNull(p);
         Assert.False(validator.isValid(p));
@@ -166,6 +167,21 @@ public class ModelsTests
         Assert.True(validator.isValid(p));
     }
 
-    //Test for GetAllPostsById
-    // [Fact]
+    [Fact]
+    public void PostToStringReturnsSomething()
+    {
+        Post p = new();
+        Assert.True(!string.IsNullOrEmpty(p.ToString()));
+    }
+
+    [Fact]
+    public void UserTokenCreated()
+    {
+        UserToken token = new();
+        Assert.NotNull(token);
+        Assert.False(new UserTokenValidator().isValid(token));
+        token.token = " test ";
+        token.expires = DateTime.Now;
+        Assert.True(new UserTokenValidator().isValid(token));
+    }
 }
