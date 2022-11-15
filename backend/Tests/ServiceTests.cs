@@ -129,17 +129,8 @@ public class ServiceTests
             text = "Hi there",
             sender_name = "chi"
         });
-        pservice.Add(new Post
-        {
-            id = Guid.NewGuid(),
-            sender_id = duncan.id,
-            reciver_id = rushay.id,
-            text = "howdy there",
-            sender_name = "duncan"
-        });
-        // Assert.True(pservice.GetAllById(rushay.id).Count == 0);
-        // Assert.True(pservice.GetAllById(chi.id).Count == 1);
-        // Assert.True(pservice.GetAllById(duncan.id).Count == 1);
+        Assert.True(pservice.GetAllById(Guid.Empty).Count == 0);
+        Assert.True(pservice.GetAllById(rushay.id).Count == 1);
 
         Garden g = new();
         g.user_id = rushay.id;
