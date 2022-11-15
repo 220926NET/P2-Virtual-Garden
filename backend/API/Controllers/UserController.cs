@@ -43,6 +43,35 @@ public class UserController : ControllerBase
         return BadRequest("Username already exists");
     }
 
+    [HttpGet]
+    [Route("user/{username}")]
+    public ActionResult<Guid> GetUserId(string username)
+    {
+        Guid id = _userService.GetId(username);
+        if (id != Guid.Empty)
+        {
+            Log.Information($"Sent the GUID for {username}");
+            return Ok(id);
+        }
+        Log.Error("Could not get user name");
+        return BadRequest("No user name found");
+
+    }
+
+    // [HttpGet]
+    // [Route("plant/{plantName}")]
+    // public ActionResult<Guid> GetPlant(string plantName)
+    // {
+    //     Guid id = _gardenService.GetId(plantName);
+    //     if (id != Guid.Empty)
+    //     {
+    //         Log.Information($"Sent the GUID for {plantName}");
+    //         return Ok(id);
+    //     }
+    //     Log.Error("Could not get plant name");
+    //     return BadRequest("No plant name found");
+    // }
+
     [HttpPost]
     [Route("login")]
     public ActionResult<UserToken> Login(UserDto loginUser)

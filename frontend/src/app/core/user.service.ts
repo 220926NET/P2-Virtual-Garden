@@ -20,5 +20,10 @@ export class UserService {
     return this.http.get(environment.baseApi + "users/"+ username, {responseType: 'text'});
   }
 
+  getIdBasedOnName(username:string): Observable<string>
+  {
+    return this.http.get<string>(environment.baseApi + 'user/' + username);
+  }
+
 
 }

@@ -129,8 +129,21 @@ public class UserDBAccess : IDBAccess<User>
         throw new NotImplementedException();
     }
 
-    public Guid GetId(string plantName)
+     public Guid GetId(string userName)
     {
-        throw new NotImplementedException();
+        try
+        {
+            using SqlConnection connection = _factory.GetConnection();
+            connection.Open();
+            SqlCommand cmd = new SqlCommand("select id from Users where [username] = @name;", connection);
+            cmd.Parameters.AddWithValue("@name", userName);
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows) if (reader.Read()) return (Guid)reader["id"];
+        }
+        catch (SqlException e)
+        {
+            Log.Error(e, "An exception was thrown while getting the plant's Guid");
+        }
+        return Guid.Empty;
     }
 }
