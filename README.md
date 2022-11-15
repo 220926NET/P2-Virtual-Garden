@@ -33,7 +33,7 @@ Project 2 - Rushay, Jacob, Chi, Duncan
 - FrontEnd Design
     -![Rough Draft](/Assets/Design.png)
 - Landing Page
--   -![Landing](/Assets/LandingPage.png)
+    -![Landing](/Assets/LandingPage.png)
 
 - External API
     - Weather API to set the mood the page
