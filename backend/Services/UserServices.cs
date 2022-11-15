@@ -95,4 +95,8 @@ public class UserServices : IUserServices
         }
     }
 
+    public Guid GetId(string username)
+    {
+        return _userDatabase.GetId(username);
+    }
 }

@@ -11,4 +11,5 @@ public interface IUserServices
     List<User> GetAll();
     User Update(UserDto user);
     User Delete(UserDto user);
+    Guid GetId(string username);
 }

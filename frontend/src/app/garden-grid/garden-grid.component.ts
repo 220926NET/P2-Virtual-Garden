@@ -7,6 +7,8 @@ import { IGarden } from '../shared/interface';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { timer, interval } from 'rxjs';
+import { ActivatedRoute } from '@angular/router'
+import { UserService } from '../core/user.service';
 
 
 @Component({
@@ -22,7 +24,7 @@ export class GardenGridComponent implements OnInit, OnChanges {
   //   tiles: []
   // }
 
-  constructor(private gservice: GardenService, private renderer: Renderer2, private pservice: PlantService) { }
+  constructor(private gservice: GardenService, private renderer: Renderer2, private pservice: PlantService, private route: ActivatedRoute, private userservice:UserService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.doRender();
@@ -54,7 +56,18 @@ export class GardenGridComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.doRender();
+    //get name from route
+    let name:string = this.route.snapshot.paramMap.get('username')!;
+    console.log(name);
+    //turn name into an id
+    this.userservice.getIdBasedOnName(name).subscribe((res)=>{
+      // get garden based on id
+      this.gservice.getGarden(res).subscribe(res => {
+        this.gservice.garden = res;
+        this.doRender();
+    });
+    })
+    
     sessionStorage.setItem('selectedTool', 'nothing');
     // // See if there is a garden saved
     // this.gservice.getGarden(this.garden.user_id).subscribe({
