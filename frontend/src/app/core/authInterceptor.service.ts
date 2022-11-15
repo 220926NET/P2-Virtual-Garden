@@ -11,7 +11,11 @@ export class AuthInterceptorService implements HttpInterceptor{
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      
+    
+    if(req.url.includes('openweather')){
+      return next.handle(req);
+    }
+
     const token = sessionStorage.getItem('token');
 
     if (token) {

@@ -1,6 +1,10 @@
 .userArea{
     height:85%;
 }
+.header{
+    display: flex;
+    justify-content: space-evenly;
+}
 
 .userBanner{
     height:15%;

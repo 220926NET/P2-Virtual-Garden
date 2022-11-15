@@ -56,6 +56,8 @@ import { UserPageComponent } from './user-page/user-page.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
     MatRadioModule,
     FormsModule,
     MatSelectModule,
