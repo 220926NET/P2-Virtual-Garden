@@ -1,0 +1,7 @@
+<form [formGroup]="friendForm" (ngSubmit)="getExists()">
+    <mat-form-field appearance="outline" class="username">
+      <mat-label>Username of Friend</mat-label>
+      <input matInput name="username" formControlName="friendName" placeholder="Username" >
+    </mat-form-field>
+    <button mat-raised-button type="submit">AddFriend</button>
+  </form>

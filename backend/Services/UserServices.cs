@@ -41,6 +41,10 @@ public class UserServices : IUserServices
         return _userDatabase.Add(newUser);
     }
 
+    public User Exists(string username)
+    {
+        return _userDatabase.Exists(username);
+    }
     public User GetById(int id)
     {
         throw new NotImplementedException();

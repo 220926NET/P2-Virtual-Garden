@@ -29,12 +29,17 @@ export class FriendsComponent implements OnInit {
   }
 
   getFriends(){
-    this._friendService.getFriend("jallen")
-      .pipe(
-        map((value:IFriendRelationship[]) => {
-        this.display = value;
-        })
-      )
+    this._friendService.getFriend("jallen").subscribe(
+      {
+        next:(res) =>{
+          this.display = res;
+        },
+        error:(err) =>{
+          console.log("friends not sent")
+        }
+        
+      }
+    )
 
       //this.display = [{username:"user", friendname: "something"}]
   
