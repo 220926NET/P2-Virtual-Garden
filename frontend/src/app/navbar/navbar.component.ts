@@ -39,6 +39,7 @@ export class NavbarComponent implements OnInit {
           this.loginForm.reset();
           this.getUserId().subscribe(res => {
             this.userId = res;
+            sessionStorage.setItem("userId", this.userId);
             this.gService.getGarden(this.userId).subscribe(res => {
               this.gService.garden = res;
               this.authService.LoggedIn = this.authService.isLoggedIn();

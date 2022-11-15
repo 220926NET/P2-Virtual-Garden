@@ -7,6 +7,7 @@ import { Output, EventEmitter } from '@angular/core'
 
 import {PostService} from '../core/post.service';
 import { IPost } from '../shared/interface';
+import { GardenService } from '../core/garden.service';
 
 @Component({
   selector: 'app-post',
@@ -23,7 +24,7 @@ export class PostComponent implements OnInit{
   comment = new FormControl();
 
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private gardenService:GardenService) { }
 
   ngOnInit(): void {
     this.postService.getAllPostsUserIsRecipientOf(this.userId).subscribe((posts: IPost[] )=> {
@@ -49,11 +50,13 @@ export class PostComponent implements OnInit{
     let now = new Date();
     let post:IPost={
       id: Guid.EMPTY,
-      sender_id:"9eb40a35-7a1f-44b5-af6f-68440861cbf4",
-      reciver_id:"9eb40a35-7a1f-44b5-af6f-68440861cbf4",
+      //person logged in at the moment
+      sender_id:sessionStorage.getItem("userId")!,
+      //the garden owner's id, from the URL?
+      reciver_id:this.gardenService.garden.user_id,
       text:this.comment.value,
       time: now,
-      sender_name: "duncan"
+      sender_name: sessionStorage.getItem("username")!
     }
     this.postService.sendPost(post).subscribe((res) =>{
       console.log(res)

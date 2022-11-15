@@ -88,7 +88,7 @@ export interface IPost {
     sender_id: string,
     reciver_id: string,
     text: string,
-    time: any,
+    time: Date,
     sender_name: string
 }
 
