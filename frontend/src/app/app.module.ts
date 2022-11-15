@@ -14,7 +14,9 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { LandingPageModule } from './landing-page/landing-page.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatRadioModule} from '@angular/material/radio'
+import { MatRadioModule} from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+
 
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -25,6 +27,8 @@ import { AuthInterceptorService } from './core/authInterceptor.service';
 import { AppRoutingModule } from './app-routing.module';
 
 import { FriendsComponent } from './friends/friends.component';
+import { UsersComponent } from './users/users.component';
+import { UserPageComponent } from './user-page/user-page.component';
 
 
 
@@ -37,7 +41,9 @@ import { FriendsComponent } from './friends/friends.component';
     PostComponent,
     GardenGridComponent,
     WeatherComponent,
-    FriendsComponent
+    FriendsComponent,
+    UsersComponent,
+    UserPageComponent
   ],
   imports: [
     BrowserModule,
@@ -50,10 +56,9 @@ import { FriendsComponent } from './friends/friends.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
     MatRadioModule,
     FormsModule,
+    MatSelectModule,
     AppRoutingModule
   ],
   providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true } ],

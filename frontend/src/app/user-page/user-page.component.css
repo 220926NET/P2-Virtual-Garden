@@ -4,11 +4,6 @@
 
 .userBanner{
     height:15%;
-
-}
-.header{
-    display: flex;
-    justify-content: space-evenly;
 }
 .parentContainer{
     height:80%;

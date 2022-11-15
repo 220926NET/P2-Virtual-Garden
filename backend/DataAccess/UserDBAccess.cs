@@ -85,7 +85,31 @@ public class UserDBAccess : IDBAccess<User>
 
         return users;
     }
+    public User Exists(string username){
+        User user = new User();
 
+        try
+        {
+            using SqlConnection connection = _factory.GetConnection();
+            connection.Open();
+
+            SqlCommand command = new SqlCommand("SELECT * FROM Users WHERE username = @username;", connection);
+            command.Parameters.AddWithValue("@username", username);
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+                user.username = (string)reader["username"];
+            }
+        }
+        catch (SqlException e)
+        {
+            Log.Error(e, "An exception was thrown while verifying user.");
+        }
+
+        return user;
+    }
     public User GetById(Guid id)
     {
         throw new NotImplementedException();

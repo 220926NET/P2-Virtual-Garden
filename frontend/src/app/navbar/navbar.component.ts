@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../core/auth.service';
 import { GardenService } from '../core/garden.service';
-import { Router } from '@angular/router'
+import { Router, Route, ActivatedRoute } from '@angular/router'
 //import { MatFormFieldControl} from '@angular/material/form-field'
 
 @Component({
@@ -42,10 +42,15 @@ export class NavbarComponent implements OnInit {
             this.gService.getGarden(this.userId).subscribe(res => {
               this.gService.garden = res;
               this.authService.LoggedIn = this.authService.isLoggedIn();
-              this.router.navigate(['/user', { username: val.username}]);
+<<<<<<< HEAD
+              sessionStorage.setItem("username", val.username);
+=======
+              this.router.navigateByUrl(`user/${val.username}`);
+>>>>>>> main
             });
           });
         });
+
     }
 
   }
@@ -53,6 +58,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.userId = "";
+    this.router.navigateByUrl('home');
   }
 
   getUserId() {

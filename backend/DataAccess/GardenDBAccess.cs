@@ -186,6 +186,11 @@ public class GardenDBAccess : IDBAccess<Garden>
         throw new NotImplementedException();
     }
 
+    public Garden Exists(string username)
+    {
+        throw new NotImplementedException();
+    }
+
     public Garden GetById(Guid id)
     {
         try
