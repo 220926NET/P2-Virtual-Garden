@@ -8,6 +8,9 @@ export class PlantService {
   constructor() { }
 
   getPhase(timePlanted: string, timeToGrow: number): number {
+    if (timeToGrow == 0) {
+      return 2;
+    }
     // The current time
     let currentTime: number = Date.now();
     // The time planted
