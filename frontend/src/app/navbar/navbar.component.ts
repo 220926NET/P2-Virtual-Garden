@@ -12,7 +12,7 @@ import { Router, Route, ActivatedRoute } from '@angular/router'
   //encapsulation: ViewEncapsulation.None
 })
 export class NavbarComponent implements OnInit {
-
+  username:string="";
   loginForm: FormGroup;
   userId: string = '';
 
@@ -43,6 +43,7 @@ export class NavbarComponent implements OnInit {
             this.authService.LoggedIn = this.authService.isLoggedIn();
             sessionStorage.setItem("username", val.username);
             this.router.navigateByUrl(`user/${val.username}`);
+            this.username= val.username;
           });
         });
 

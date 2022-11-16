@@ -7,7 +7,12 @@
 
 </section>
 <section class="parentContainer">
-    <app-tools></app-tools>
+    <ng-template [ngIf]="condition">
+        <app-tools></app-tools>
+    </ng-template>
+    <div>
+        
+    </div>
     <app-garden></app-garden>
     <app-post></app-post>
 </section>
