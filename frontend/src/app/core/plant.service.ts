@@ -8,6 +8,9 @@ export class PlantService {
   constructor() { }
 
   getPhase(timePlanted: string, timeToGrow: number): number {
+    if (timeToGrow == 0) {
+      return 2;
+    }
     // The current time
     let currentTime: number = Date.now();
     // The time planted
@@ -16,6 +19,7 @@ export class PlantService {
     let elapsedTime: number = currentTime - plantTime;
     // How many milliseconds per phase
     let phase: number = (timeToGrow * 60000) / 2;
+    console.log(elapsedTime);
     //console.log(elapsedTime / 60000);
     if (elapsedTime < phase) {
       return 0;
