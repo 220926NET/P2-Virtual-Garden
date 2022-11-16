@@ -24,9 +24,9 @@ export class GardenGridComponent implements OnInit, OnChanges {
   //   tiles: []
   // }
 
-  constructor(private gservice: GardenService, private renderer: Renderer2, private pservice: PlantService, private route: ActivatedRoute, private userservice:UserService) {
-    
-   }
+  constructor(private gservice: GardenService, private renderer: Renderer2, private pservice: PlantService, private route: ActivatedRoute, private userservice: UserService) {
+
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.doRender();
@@ -59,17 +59,17 @@ export class GardenGridComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     //get name from route
-    let name:string = this.route.snapshot.paramMap.get('username')!;
+    let name: string = this.route.snapshot.paramMap.get('username')!;
     console.log(name);
     //turn name into an id
-    this.userservice.getIdBasedOnName(name).subscribe((res)=>{
+    this.userservice.getIdBasedOnName(name).subscribe((res) => {
       // get garden based on id
       this.gservice.getGarden(res).subscribe(res => {
         this.gservice.garden = res;
         this.doRender();
-    });
+      });
     })
-    
+
     sessionStorage.setItem('selectedTool', 'nothing');
     // // See if there is a garden saved
     // this.gservice.getGarden(this.garden.user_id).subscribe({
@@ -107,7 +107,7 @@ export class GardenGridComponent implements OnInit, OnChanges {
         next: (res) => {
           let tileId: string = elementId.substring(1, elementId.length);
           this.gservice.garden.tiles[Number.parseInt(tileId)].plant_information.id = res;
-          this.gservice.garden.tiles[Number.parseInt(tileId)].plant_time = moment().format();
+          this.gservice.garden.tiles[Number.parseInt(tileId)].plant_time = new Date().toISOString();
           this.gservice.updateGarden(this.gservice.garden).subscribe({
             next: (res) => {
               this.gservice.garden = res;
