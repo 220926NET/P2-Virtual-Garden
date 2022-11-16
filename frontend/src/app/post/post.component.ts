@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Params } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { Output, EventEmitter } from '@angular/core'
+import { timer } from 'rxjs';
 
 import {PostService} from '../core/post.service';
 import { IPost } from '../shared/interface';
@@ -26,14 +27,22 @@ export class PostComponent implements OnInit{
 
   constructor(private postService: PostService, private gardenService:GardenService) { }
 
-  ngOnInit(): void {
-    this.postService.getAllPostsUserIsRecipientOf(this.userId).subscribe((posts: IPost[] )=> {
+  doRender(): void {
+    this.postService.getAllPostsUserIsRecipientOf(Guid.parse(this.gardenService.garden.user_id)).subscribe((posts: IPost[] )=> {
       this.bunchaPosts = posts;
       console.log(this.bunchaPosts);
       this.comments = this.bunchaPosts;
     });
+  }
+
+  ngOnInit(): void {
+    timer(2000, 60000).subscribe({
+      next: () => { this.doRender(); },
+      error: (err) => { console.error(err); }
+    })
     
   }
+
 
 
   openForm() {

@@ -52,6 +52,7 @@ export class AuthService {
   logout() {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('expires');
+    sessionStorage.clear();
     this.LoggedIn = this.isLoggedIn();
   }
 
