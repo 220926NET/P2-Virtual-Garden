@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { IAuthResult, IUser } from '../shared/interface';
 import { throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
 
 
 @Injectable({
@@ -14,10 +16,13 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  indevelopmet:string = 'https://localhost:7077/api/login';
+  api: string = environment.baseApi;
+
   public LoggedIn: boolean = this.isLoggedIn();
 
   login(username: string, password: string) {
-    return this.http.post<IAuthResult>('https://localhost:7077/api/login', {username, password}).pipe(
+    return this.http.post<IAuthResult>( this.api +  '/login', {username, password}).pipe(
       catchError((error: HttpErrorResponse) => {
         let message: string = "Some Error"
         if (error.error instanceof ErrorEvent) {
@@ -34,7 +39,7 @@ export class AuthService {
   }
 
   register(username: string, password: string) {
-    return this.http.post<IUser>('https://localhost:7077/api/register', {username, password}).pipe(
+    return this.http.post<IUser>( this.api + '/register', {username, password}).pipe(
       shareReplay()
     )
   }
@@ -62,7 +67,7 @@ export class AuthService {
   }
 
   getUserId() {
-    return this.http.get('https://localhost:7077/api/user', { responseType: 'text' });
+    return this.http.get( this.api + '/user', { responseType: 'text' });
   }
 
 }
