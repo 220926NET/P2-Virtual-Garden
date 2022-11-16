@@ -1,6 +1,9 @@
 <div class="dropdown">
-    <select class="friends" (click)="getFriends()">
-        <option value="default">Friends</option>
-        <option *ngFor = "let name of display"><a href="">{{name.friendname}}</a></option>
-    </select>
+    <form [formGroup]="friendForm" (ngSubmit)="GoToPage()">
+    <mat-select [(value)]="friend" formControlName="friend" name="friendName">
+        <mat-option value="default">Friends</mat-option>
+        <mat-option *ngFor = "let name of display" value="{{name.friendname}}">{{name.friendname}}</mat-option>
+    </mat-select>
+    <button>Go to Page</button>
+</form>
 </div>

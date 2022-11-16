@@ -24,7 +24,9 @@ export class GardenGridComponent implements OnInit, OnChanges {
   //   tiles: []
   // }
 
-  constructor(private gservice: GardenService, private renderer: Renderer2, private pservice: PlantService, private route: ActivatedRoute, private userservice:UserService) { }
+  constructor(private gservice: GardenService, private renderer: Renderer2, private pservice: PlantService, private route: ActivatedRoute, private userservice:UserService) {
+    
+   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.doRender();
