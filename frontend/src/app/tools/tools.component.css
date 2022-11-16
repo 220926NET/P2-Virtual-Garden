@@ -11,7 +11,7 @@
 
 .toolOption{
     background-color: azure;
-    height:35%;
+    /* height:35%; */
 
 }
 .toolOptionHeader{
@@ -29,6 +29,7 @@
 }
 .radioButtonArea{
     display:flex;
+    flex-wrap: wrap;
 }
 #HarvestButton{
     background-color: rgb(99, 197, 164);
@@ -48,9 +49,6 @@ h3{
     background-color: lightsalmon;
 }
 
-h6{
-    
-}
 .toolOptionBody{
     padding: 10pt 10pt 10pt 10pt;
 }
@@ -60,3 +58,4 @@ h6{
     height:20pt;
     
 }
+

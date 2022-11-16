@@ -8,15 +8,16 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserPageComponent implements OnInit {
   condition:boolean  = true;
+  name: string = "";
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     //get name of person whose garden is being displayed
-    let name:string = this.route.snapshot.paramMap.get('username')!;
+    this.name = this.route.snapshot.paramMap.get('username')!;
     //get name of user logged in
     let username = sessionStorage.getItem("username")!;
-    this.condition = (name === username);
+    this.condition = (this.name === username);
 
     
   }

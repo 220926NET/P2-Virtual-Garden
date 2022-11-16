@@ -1,4 +1,22 @@
-.friends{
+/* .friends{
     text-align: right;
     position: absolute;
+} */
+.dropdown {
+    display: flex;
+    flex-grow: 1;
+}
+form {
+    display: flex;
+}
+mat-select {
+    width: 200pt;
+    margin: 2pt 5pt;
+    height: 25pt;
+    border: 1pt solid rgba(0, 0, 0, 0.349);
+    border-radius: 3pt;
+}
+
+button {
+    height: 25pt;
 }
