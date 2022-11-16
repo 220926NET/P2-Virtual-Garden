@@ -17,7 +17,7 @@
     <button mat-raised-button (click)="register()">Register</button>
   </div>
   <div class="logout-form-group" *ngIf="authService.LoggedIn">
-    <a [routerLink]="['/user/', username]"><p class="welcome-username">Welcome!</p></a>
+    <a [routerLink]="['/user/', username]"><p class="welcome-username">Welcome, {{username}}</p></a>
     <button mat-raised-button (click)="logout()">Logout</button>
   </div>
 

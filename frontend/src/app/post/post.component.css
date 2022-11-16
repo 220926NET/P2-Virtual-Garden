@@ -75,4 +75,13 @@
     margin: 10px 0;
   }
 
+  p {
+    text-align: center;
+    border: 1pt solid black;
+    border-radius: 3pt;
+    box-shadow: 1pt 1pt 2pt black;
+    margin: 5pt;
+    background-color: white;
+  }
+
 
