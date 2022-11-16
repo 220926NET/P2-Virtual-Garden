@@ -23,7 +23,7 @@ export class WeatherService {
   }
 
   getCoordinates(countryCode: string, zipCode:string) : Observable<ICoordinates> {
-    return this.http.get<ICoordinates>(`http://api.openweathermap.org/geo/1.0/zip?zip=${zipCode},${countryCode}&appid=${this.apiid}`);
+    return this.http.get<ICoordinates>(`https://api.openweathermap.org/geo/1.0/zip?zip=${zipCode},${countryCode}&appid=${this.apiid}`);
   }
 
   getRegionalForecast(regLat:number, regLon:number) : Observable<IForecast>{
