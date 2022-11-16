@@ -107,7 +107,7 @@ export class GardenGridComponent implements OnInit, OnChanges {
         next: (res) => {
           let tileId: string = elementId.substring(1, elementId.length);
           this.gservice.garden.tiles[Number.parseInt(tileId)].plant_information.id = res;
-          this.gservice.garden.tiles[Number.parseInt(tileId)].plant_time = new Date(Date.now()).toISOString();
+          this.gservice.garden.tiles[Number.parseInt(tileId)].plant_time = new Date().toISOString();
           this.gservice.updateGarden(this.gservice.garden).subscribe({
             next: (res) => {
               this.gservice.garden = res;
