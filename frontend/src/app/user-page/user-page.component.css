@@ -3,7 +3,18 @@
 }
 .header{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: left;
+}
+
+app-friends {
+    margin: 2pt 5pt;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+}
+
+app-users {
+    margin: 2pt 5pt;
 }
 
 .userBanner{
@@ -30,4 +41,8 @@ app-post{
     background-color: lightcoral;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+h1 {
+    margin: 2pt 10pt;
 }
