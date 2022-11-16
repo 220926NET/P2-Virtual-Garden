@@ -5,8 +5,12 @@ namespace Services;
 
 public class DBAccessFactory : IDBAccessFactory
 {
-    private readonly SqlConnectionFactory _connection = new SqlConnectionFactory();
+    private readonly SqlConnectionFactory _connection;
 
+    public DBAccessFactory(string connString){
+        _connection= new SqlConnectionFactory(connString);
+
+    }
     public IDBAccess<FriendRelationship> GetFriendDB()
     {
         return new FriendDBAccess(_connection);

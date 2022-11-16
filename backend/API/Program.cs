@@ -14,7 +14,9 @@ Log.Logger = new LoggerConfiguration()
                 .CreateLogger();
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 
 builder.Services.AddCors(options =>
@@ -27,17 +29,19 @@ builder.Services.AddCors(options =>
                       });
 });
 
+
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//adding connection string
 builder.Services.AddScoped<IUserServices, UserServices>();
 builder.Services.AddScoped<IServices<Post>, PostServices>();
 builder.Services.AddScoped<IServices<FriendRelationship>, FriendServices>();
 builder.Services.AddScoped<IServices<Garden>, GardenServices>();
-builder.Services.AddScoped<IDBAccessFactory, DBAccessFactory>();
+builder.Services.AddScoped<IDBAccessFactory, DBAccessFactory>(ctx => new DBAccessFactory(builder.Configuration.GetConnectionString("VGconnectionToDB")));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options =>
