@@ -42,13 +42,13 @@ export class GardenGridComponent implements OnInit, OnChanges {
       //console.log(phase);
       switch (phase) {
         case 0:
-          this.renderer.setStyle(element, "background-image", `url(assets/sprout.png)`);
+          this.renderer.setStyle(element, "background-image", `url(assets/sprout.png),url(assets/dryDirt.jpg)`);
           break;
         case 1:
-          this.renderer.setStyle(element, "background-image", `url(assets/foil.jpg)`);
+          this.renderer.setStyle(element, "background-image", `url(assets/foil.jpg),url(assets/dryDirt.jpg)`);
           break;
         default:
-          this.renderer.setStyle(element, "background-image", `url(assets/${this.gservice.garden.tiles[i].plant_information.image_path})`);
+          this.renderer.setStyle(element, "background-image", `url(assets/${this.gservice.garden.tiles[i].plant_information.image_path}),url(assets/dryDirt.jpg)`);
           break;
       }
 

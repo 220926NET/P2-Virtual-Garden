@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,10 @@ export class PlantService {
       return 2;
     }
     // The current time
-    let currentTime: number = Date.now();
+    let currentTime: number = new Date().getTime();
+    console.log(new Date(timePlanted).getTimezoneOffset());
     // The time planted
-    let plantTime: number = new Date(timePlanted).getTime();
+    let plantTime: number = new Date(timePlanted).getTime() - new Date(timePlanted).getTimezoneOffset() * 60000;
     // Elapsed Time
     let elapsedTime: number = currentTime - plantTime;
     // How many milliseconds per phase
